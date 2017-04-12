@@ -1,4 +1,6 @@
 <?php
+// TODO CRUD
+//TODO aanpassen alle klanten
 
 /**
  * Created by PhpStorm.
@@ -17,15 +19,15 @@ class KlantDAO
 	{
 		$dbh=DBConfig::openConnectie();
 		$sql = "SELECT klantNummer,naam,voornaam,telefoon, emailadres as email,wachtwoord,opmerking,promo,beheerder,
-plaats.plaatsId as pId,postcode,stad,
-straat.straatId as sId,straat,huisnummer 
-FROM klant INNER JOIN plaats on klant.plaatsId = plaats.plaatsId 
-INNER JOIN straat on straat.straatId = klant.straatId";
+stad.id as stadId,postcode,stad,
+straat.id as straatId,straat,huisnummer 
+FROM klant INNER JOIN stad on klant.stadId = stad.id 
+INNER JOIN straat on straat.id = klant.straatId";
 		$resultSet = $dbh->query($sql);
 		$lijst = array();
 		foreach ($resultSet as $rij){
-			$straat = Straat::create($rij["sId"],$rij["straat"],$rij["huisnummer"]);
-			$stad = Stad::create($rij["pId"],$rij["postcode"],$rij["stad"]);
+			$straat = Straat::create($rij["straatId"],$rij["straat"],$rij["huisnummer"]);
+			$stad = Stad::create($rij["stadId"],$rij["postcode"],$rij["stad"]);
 			$klant = Klant::create($rij["klantNummer"],$rij["naam"],$rij["voornaam"],$rij["telefoon"],$rij["email"],$rij["wachtwoord"],$rij["opmerking"],$rij["promo"],$rij["beheerder"],$stad,$straat);
 			array_push($lijst,$klant);
 		}
@@ -33,4 +35,6 @@ INNER JOIN straat on straat.straatId = klant.straatId";
 		return $lijst;
 
 	}
+
+
 }

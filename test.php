@@ -5,13 +5,19 @@
  * Date: 10/04/2017
  * Time: 15:09
  */
-require_once "Business/ZaakService.php";
-require_once "Data/PizzaDAO.php";
-require_once "Business/PizzaService.php";
-require_once "Data/KlantDAO.php";
+require_once "Data/StadDAO.php";
+require_once "Entities/Stad.php";
 
-$klantDAO = new KlantDAO();
-$klanten = $klantDAO->getKlanten();
-print "<pre>";
-print_r($klanten);
-print "</pre>";
+
+try {
+	$stadDAO = new StadDAO();
+
+	$stadDAO->delete("4");
+	$stadDAO->create("Tilt","8700");
+	$steden = $stadDAO->getAlleSteden();
+	print "<pre>";
+	print_r($steden);
+	print "</pre>";
+}catch (BestaatException $ex){
+	print("het bestaat al");
+}

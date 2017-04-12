@@ -10,7 +10,7 @@ require_once "Business/ZaakService.php";
 require_once("bootstrap.php");
 
 $zaakSvc = new ZaakService();
-$zaak = $zaakSvc->getZaakByNaam("Papi Pizza");
+$zaak = $zaakSvc->getZaakByNaam("Papi Product");
 //print_r($zaak);
 
 //include "Presentation/index.php";

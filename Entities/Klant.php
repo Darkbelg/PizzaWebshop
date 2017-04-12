@@ -1,5 +1,5 @@
 <?php
-//TODO DONE veranderen van namen
+
 /**
  * Created by PhpStorm.
  * User: cyber09
@@ -18,7 +18,7 @@ class Klant
 	private $opmerking;
 	private $promo;
 	private $beheerder;
-	private $plaats;
+	private $stad;
 	private $straat;
 
 
@@ -33,10 +33,10 @@ class Klant
 	 * @param $opmerking
 	 * @param $promo
 	 * @param $beheerder
-	 * @param $plaats
+	 * @param $stad
 	 * @param $straat
 	 */
-	public function __construct($klantnummer, $naam, $voornaam, $telefoon, $emailadres, $wachtwoord, $opmerking, $promo, $beheerder, $plaats, $straat)
+	public function __construct($klantnummer, $naam, $voornaam, $telefoon, $emailadres, $wachtwoord, $opmerking, $promo, $beheerder, $stad, $straat)
 	{
 		$this->klantnummer = $klantnummer;
 		$this->naam = $naam;
@@ -47,14 +47,14 @@ class Klant
 		$this->opmerking = $opmerking;
 		$this->promo = $promo;
 		$this->beheerder = $beheerder;
-		$this->plaats = $plaats;
+		$this->stad = $stad;
 		$this->straat = $straat;
 	}
 
-		public static function create($klantnummer,$naam,$voornaam,$telefoon,$emailadres,$wachtwoord,$opmerking,$promo,$beheerder,$plaats,$straatId)
+		public static function create($klantnummer, $naam, $voornaam, $telefoon, $emailadres, $wachtwoord, $opmerking, $promo, $beheerder, $stad, $straat)
 			{
 				if(!isset(self::$idMap[$klantnummer])){
-					self::$idMap[$klantnummer]=new Klant($klantnummer,$naam,$voornaam,$telefoon,$emailadres,$wachtwoord,$opmerking,$promo,$beheerder,$plaats,$straatId);
+					self::$idMap[$klantnummer]=new Klant($klantnummer,$naam,$voornaam,$telefoon,$emailadres,$wachtwoord,$opmerking,$promo,$beheerder,$stad,$straat);
 				}
 				return self::$idMap[$klantnummer];
 			}
@@ -189,17 +189,17 @@ class Klant
 	/**
 	 * @return mixed
 	 */
-	public function getPlaats()
+	public function getStad()
 	{
-		return $this->plaats;
+		return $this->stad;
 	}
 
 	/**
-	 * @param mixed $plaats
+	 * @param mixed $stad
 	 */
-	public function setPlaats($plaats)
+	public function setStad($stad)
 	{
-		$this->plaats = $plaats;
+		$this->stad = $stad;
 	}
 
 	/**
