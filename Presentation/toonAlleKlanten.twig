@@ -1,0 +1,32 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Voornaam</th>
+            <th>Telefoon</th>
+            <th>E-mail</th>
+            <th>Opmerking</th>
+            <th>Stad</th>
+            <th>Postcode</th>
+            <th>Straat</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for klant in klanten %}
+            <tr>
+                <td>{{ klant.naam }}</td>
+                <td>{{ klant.voornaam }}</td>
+                <td>{{ klant.telefoon }} </td>
+                <td>{{ klant.emailadres }} </td>
+                <td>{{ klant.opmerking }} </td>
+                <td>{{ klant.plaats.stad }} </td>
+                <td>{{ klant.plaats.postcode }} </td>
+                <td>{{ klant.straat.straat }} {{ klant.straat.huisnummer }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
