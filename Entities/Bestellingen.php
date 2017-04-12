@@ -1,4 +1,5 @@
 <?php
+//TODO DONE veranderen van namen
 
 /**
  * Created by PhpStorm.
@@ -10,44 +11,57 @@ class Bestellingen
 {
 	private static $idMap = array();
 
-	private  $bestellingId;
+	private $id;
 	private $datum;
 	private $tijdstip;
 	private $info;
-	private $klantNummer;
+	private $klant;
 	private $straat;
 	private $plaats;
-	private $orders;
+	private $bestellijn;
 
 	/**
 	 * BestellingenDAO constructor.
-	 * @param $bestellingId
+	 * @param $id
 	 * @param $datum
 	 * @param $tijdstip
 	 * @param $info
-	 * @param $klantNummer
+	 * @param $klant
 	 * @param $straat
 	 * @param $plaats
+	 * @param $bestellijn
 	 */
-	public function __construct($bestellingId, $datum, $tijdstip, $info, $klantNummer, $straat, $plaats,$orders)
+	public function __construct($id, $datum, $tijdstip, $info, $klant, $straat, $plaats, $bestellijn)
 	{
-		$this->bestellingId = $bestellingId;
+		$this->id = $id;
 		$this->datum = $datum;
 		$this->tijdstip = $tijdstip;
 		$this->info = $info;
-		$this->klantNummer = $klantNummer;
+		$this->klant = $klant;
 		$this->straat = $straat;
 		$this->plaats = $plaats;
-		$this->orders=$orders;
+		$this->bestellijn = $bestellijn;
 	}
 
-		public static function create($bestellingId, $datum, $tijdstip, $info, $klantNummer, $straat, $plaats,$orders)
-			{
-				if(!isset(self::$idMap[$bestellingId])){
-					self::$idMap[$bestellingId]=new BestellingenDAO($bestellingId,$datum,$tijdstip,$info,$klantNummer,$straat,$plaats,$orders);
-				}
-				return self::$idMap[$bestellingId];
-			}
+	/**
+	 * @param $id
+	 * @param $datum
+	 * @param $tijdstip
+	 * @param $info
+	 * @param $klant
+	 * @param $straat
+	 * @param $plaats
+	 * @param $bestellijn
+	 * @return mixed
+	 */
+	public static function create($id, $datum, $tijdstip, $info, $klant, $straat, $plaats, $bestellijn)
+	{
+		if (!isset(self::$idMap[$id])) {
+			self::$idMap[$id] = new BestellingenDAO($id, $datum, $tijdstip, $info, $klant, $straat, $plaats, $bestellijn);
+		}
+		return self::$idMap[$id];
+	}
+
 	/**
 	 * @return mixed
 	 */
@@ -131,33 +145,33 @@ class Bestellingen
 	/**
 	 * @return mixed
 	 */
-	public function getBestellingId()
+	public function getId()
 	{
-		return $this->bestellingId;
+		return $this->id;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getKlantNummer()
+	public function getKlant()
 	{
-		return $this->klantNummer;
+		return $this->klant;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getOrders()
+	public function getBestellijn()
 	{
-		return $this->orders;
+		return $this->bestellijn;
 	}
 
 	/**
-	 * @param mixed $orders
+	 * @param mixed $bestellijn
 	 */
-	public function setOrders($orders)
+	public function setBestellijn($bestellijn)
 	{
-		$this->orders = $orders;
+		$this->bestellijn = $bestellijn;
 	}
 
 
