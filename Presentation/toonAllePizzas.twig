@@ -1,0 +1,33 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Prijs</th>
+            <th>Omschrijving</th>
+            <th>Ingredienten</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for pizza in pizzas %}
+            <tr>
+                <td>{{ pizza.naam }}</td>
+                <td>{{ pizza.prijs }}</td>
+                <td>{{ pizza.omschrijving }} </td>
+                <td>
+                    <table class="table table-bordered">
+                        {% for ingredient in pizza.ingredienten   %}
+                            <tr>
+                                <td> {{ ingredient.naam }}</td>
+                                <td> {{ ingredient.voedingswaarden}} kcal</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
