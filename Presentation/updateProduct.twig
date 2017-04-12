@@ -1,0 +1,35 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <form class="form-horizontal" action="updateProduct.php?action=process&id={{ product.id }}" method="post">
+
+            <div class="form-group">
+                <label  for="naam">Naam:</label>
+                <input class="form-control" type="text" name="txtNaam" id="naam" value="{{ product.naam }}">
+            </div>
+            <div class="form-group">
+                <label  for="prijs">Prijs:</label>
+                <input class="form-control" type="text" name="txtPrijs" id="prijs" value="{{ product.prijs }}">
+            </div>
+            <div class="form-group">
+                <label  for="beschikbaarvanaf">Bechikbaar vanaf: </label>
+                <input class="form-control" type="date" name="txtBeginDatum" id="beschikbaarvanaf" value="{{ product.beginDatum }}">
+            </div>
+            <div class="form-group">
+                <label  for="onbeschikbaarvanaf">Onbeschikkbaar vanaf: </label>
+                <input class="form-control" type="date" name="txtEindDatum" id="onbeschikbaarvanaf" value="{{ product.eindDatum }}">
+            </div>
+            <div class="form-group">
+                <label  for="promo">Promo korting:</label>
+                <input class="form-control" type="text" name="txtPromoKorting" id="promo" value="{{ product.promoKorting }}">
+            </div>
+
+            <div class="form-group">
+                <label  for="omschrijving">Omschrijving</label>
+                <textarea class="form-control" rows="4" cols="50" id="omschrijving" name="txtOmschrijving" >{{ product.omschrijving }}</textarea>
+            </div>
+        <div class="form-group">
+            <input class="btn btn-default" type="submit" value="Bijwerken">
+        </div>
+    </form>
+{% endblock %}

@@ -1,5 +1,5 @@
 <?php
-//TODO DONE veranderen van namen
+
 /**
  * Created by PhpStorm.
  * User: cyber09
@@ -45,7 +45,7 @@ class Product
 	public static function create($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, $extra)
 	{
 		if(!isset(self::$idMap[$id])){
-			self::$idMap[$id]=new Product($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving);
+			self::$idMap[$id]=new Product($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving,$extra);
 		}
 		return self::$idMap[$id];
 	}

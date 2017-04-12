@@ -10,5 +10,5 @@ require_once "bootstrap.php";
 
 $productenSvc = new ProductService();
 $producten = $productenSvc->toonProducten();
-$view = $twig->render("toonAllePizzas.twig",array("producten"=>$producten));
+$view = $twig->render("toonAlleExtras.twig",array("producten"=>$producten));
 print $view;

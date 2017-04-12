@@ -7,26 +7,23 @@
             <th>Naam</th>
             <th>Prijs</th>
             <th>Omschrijving</th>
-            <th>Ingredienten</th>
         </tr>
         </thead>
         <tbody>
-        {% for pizza in pizzas %}
+        {% for pizza in producten %}
+            {% if pizza.extra == 0 %}
             <tr>
                 <td>{{ pizza.naam }}</td>
-                <td>{{ pizza.prijs }}</td>
+                <td>&euro;{{ pizza.prijs }} </td>
                 <td>{{ pizza.omschrijving }} </td>
                 <td>
-                    <table class="table table-bordered">
-                        {% for ingredient in pizza.ingredienten   %}
-                            <tr>
-                                <td> {{ ingredient.naam }}</td>
-                                <td> {{ ingredient.voedingswaarden}} kcal</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
+                    <a href="updateProduct.php?id={{ pizza.id }}">Wijzigen</a>
+                </td>
+                <td>
+                    <a href="verwijderProduct.php?id={{ pizza.id }}">Verwijder</a>
                 </td>
             </tr>
+            {%  endif %}
         {% endfor %}
         </tbody>
     </table>

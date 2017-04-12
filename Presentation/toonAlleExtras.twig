@@ -1,0 +1,24 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Prijs</th>
+            <th>Omschrijving</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for extra in producten %}
+            {% if extra.extra == 1 %}
+            <tr>
+                <td>{{ extra.naam }}</td>
+                <td>&euro;{{ extra.prijs }} </td>
+                <td>{{ extra.omschrijving }} </td>
+            </tr>
+            {%  endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

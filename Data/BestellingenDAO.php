@@ -1,5 +1,5 @@
 <?php
-
+// TODO CRUD
 /**
  * Created by PhpStorm.
  * User: cyber09
@@ -8,8 +8,8 @@
  */
 require_once "DBConfig.php";
 require_once "Entities/Bestellingen.php";
-require_once "Entities/Bestelling.php";
-require_once "Entities/Pizza.php";
+require_once "Entities/Bestellijn.php";
+require_once "Entities/Product.phphp";
 require_once "Entities/Ingredienten.php";
 
 class BestellingenDAO
@@ -22,7 +22,7 @@ class BestellingenDAO
 		$lijst = array();
 		foreach ($resultSet as $rij) {
 			$bestelling = $this->getOrdersById($rij["bestellingId"]);
-			$bestellingen = Bestellingen::create($rij["bestellingId"],$rij["datum"],$rij["tijdstip"],$rij["info"])
+			$bestellingen = Bestellingen::create($rij["bestellingId"],$rij["datum"],$rij["tijdstip"],$rij["info"]);
 			//$order=Bestellingen::create();
 		}
 
@@ -35,9 +35,9 @@ class BestellingenDAO
 		$lijst = array();
 		foreach ($stmt as $rij){
 			$ingredienten = $this->getOrdersExtraPizzaId($rij["orderId"]);
-			$pizzaDAO = new PizzaDAO();
+			$pizzaDAO = new ProductDAO();
 			$pizza = $pizzaDAO->getPizzaById($rij["pizzaId"]);
-			$bestelling = Bestelling::create($rij["orderId"],$rij["bestellingId"],$rij["aantal"],$pizza,$ingredienten);
+			$bestelling = Bestellijn::create($rij["orderId"], $rij["bestellingId"], $rij["aantal"], $pizza);
 			array_push($lijst,$bestelling);
 		}
 		$dbh = DBConfig::sluitConnectie();
