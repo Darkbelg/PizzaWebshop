@@ -1,4 +1,5 @@
 <?php
+//TODO  veranderen van namen
 
 /**
  * Created by PhpStorm.
@@ -26,13 +27,14 @@ class Straat
 		$this->huisnummer = $huisnummer;
 	}
 
-		public static function create($id,$straat,$huisnummer)
-			{
-				if(!isset(self::$idMap[$id])){
-					self::$idMap[$id]=new Straat($id,$straat,$huisnummer);
-				}
-				return self::$idMap[$id];
-			}
+	public static function create($id, $straat, $huisnummer)
+	{
+		if (!isset(self::$idMap[$id])) {
+			self::$idMap[$id] = new Straat($id, $straat, $huisnummer);
+		}
+		return self::$idMap[$id];
+	}
+
 	/**
 	 * @return mixed
 	 */

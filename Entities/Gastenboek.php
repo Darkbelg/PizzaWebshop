@@ -1,5 +1,5 @@
 <?php
-
+//TODO DONE veranderen van namen
 /**
  * Created by PhpStorm.
  * User: cyber09
@@ -11,34 +11,34 @@ class Gastenboek
 	private static $idMap = array();
 
 	private $zaakId;
-	private $gastenboekId;
+	private $id;
 	private $boodschap;
 	private $datum;
-	private $klantNummer;
+	private $klant;
 
 	/**
 	 * Gastenboek constructor.
 	 * @param $zaakId
-	 * @param $gastenboekId
+	 * @param $id
 	 * @param $boodschap
 	 * @param $datum
-	 * @param $klantNummer
+	 * @param $klant
 	 */
-	public function __construct($zaakId, $gastenboekId, $boodschap, $datum, $klantNummer)
+	public function __construct($zaakId, $id, $boodschap, $datum, $klant)
 	{
 		$this->zaakId = $zaakId;
-		$this->gastenboekId = $gastenboekId;
+		$this->id = $id;
 		$this->boodschap = $boodschap;
 		$this->datum = $datum;
-		$this->klantNummer = $klantNummer;
+		$this->klant = $klant;
 	}
 
-		public static function create($zaakId,$gastenboekId,$boodschap,$datum,$klantNummer)
+		public static function create($zaakId, $id, $boodschap, $datum, $klant)
 			{
-				if(!isset(self::$idMap[$zaakId])){
-					self::$idMap[$zaakId]=new Gastenboek($zaakId,$gastenboekId,$boodschap,$datum,$klantNummer);
+				if(!isset(self::$idMap[$id])){
+					self::$idMap[$id]=new Gastenboek($zaakId,$id,$boodschap,$datum,$klant);
 				}
-				return self::$idMap[$zaakId];
+				return self::$idMap[$id];
 			}
 	/**
 	 * @return mixed
@@ -75,17 +75,17 @@ class Gastenboek
 	/**
 	 * @return mixed
 	 */
-	public function getKlantNummer()
+	public function getKlant()
 	{
-		return $this->klantNummer;
+		return $this->klant;
 	}
 
 	/**
-	 * @param mixed $klantNummer
+	 * @param mixed $klant
 	 */
-	public function setKlantNummer($klantNummer)
+	public function setKlant($klant)
 	{
-		$this->klantNummer = $klantNummer;
+		$this->klant = $klant;
 	}
 
 	/**
@@ -99,9 +99,9 @@ class Gastenboek
 	/**
 	 * @return mixed
 	 */
-	public function getGastenboekId()
+	public function getId()
 	{
-		return $this->gastenboekId;
+		return $this->id;
 	}
 
 

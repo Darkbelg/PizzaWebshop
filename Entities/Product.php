@@ -1,12 +1,12 @@
 <?php
-
+//TODO DONE veranderen van namen
 /**
  * Created by PhpStorm.
  * User: cyber09
  * Date: 10/04/2017
  * Time: 15:38
  */
-class Pizza
+class Product
 {
 	private static $idMap = array();
 
@@ -17,10 +17,10 @@ class Pizza
 	private $eindDatum;
 	private $promoKorting;
 	private $omschrijving;
-	private $ingredienten = array();
+	private $extra;
 
 	/**
-	 * Pizza constructor.
+	 * Product constructor.
 	 * @param $id
 	 * @param $naam
 	 * @param $prijs
@@ -28,8 +28,9 @@ class Pizza
 	 * @param $eindDatum
 	 * @param $promoKorting
 	 * @param $omschrijving
+	 * @param $extra
 	 */
-	public function __construct($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving,$ingredienten)
+	public function __construct($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, $extra)
 	{
 		$this->id = $id;
 		$this->naam = $naam;
@@ -38,13 +39,13 @@ class Pizza
 		$this->eindDatum = $eindDatum;
 		$this->promoKorting = $promoKorting;
 		$this->omschrijving = $omschrijving;
-		$this->ingredienten=$ingredienten;
+		$this->extra = $extra;
 	}
 
-	public static function create($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving,$ingredienten)
+	public static function create($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, $extra)
 	{
 		if(!isset(self::$idMap[$id])){
-			self::$idMap[$id]=new Pizza($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving,$ingredienten);
+			self::$idMap[$id]=new Product($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving);
 		}
 		return self::$idMap[$id];
 	}
@@ -167,6 +168,22 @@ class Pizza
 	public function getId()
 	{
 		return $this->id;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getExtra()
+	{
+		return $this->extra;
+	}
+
+	/**
+	 * @param mixed $extra
+	 */
+	public function setExtra($extra)
+	{
+		$this->extra = $extra;
 	}
 
 

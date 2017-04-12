@@ -1,50 +1,48 @@
 <?php
-
+//TODO DONE veranderen van namen
 /**
  * Created by PhpStorm.
  * User: cyber09
  * Date: 11/04/2017
  * Time: 10:30
  */
-class Bestelling
+class Bestellijn
 {
 	private static $idMap = array();
-	private $orderId;
+	private $id;
 	private $bestellingId;
 	private $aantal;
-	private $pizza;
-	private $extra;
+	private $pizzaId;
 
 	/**
-	 * Bestelling constructor.
+	 * Bestellijn constructor.
 	 * @param $orderId
 	 * @param $bestellingId
 	 * @param $aantal
-	 * @param $pizza
+	 * @param $pizzaId
 	 */
-	public function __construct($orderId, $bestellingId, $aantal, $pizza,$extra)
+	public function __construct($orderId, $bestellingId, $aantal, $pizzaId)
 	{
-		$this->orderId = $orderId;
+		$this->id = $orderId;
 		$this->bestellingId = $bestellingId;
 		$this->aantal = $aantal;
-		$this->pizza = $pizza;
-		$this->extra=$extra;
+		$this->pizzaId = $pizzaId;
 	}
 
-		public static function create($orderId, $bestellingId, $aantal, $pizza,$extra)
+		public static function create($id, $bestellingId, $aantal, $pizzaId)
 			{
-				if(!isset(self::$idMap[$orderId])){
-					self::$idMap[$orderId]=new Bestelling($orderId,$bestellingId,$aantal,$pizza,$extra);
+				if(!isset(self::$idMap[$id])){
+					self::$idMap[$id]=new Bestellijn($id,$bestellingId,$aantal,$pizzaId);
 				}
-				return self::$idMap[$orderId];
+				return self::$idMap[$id];
 			}
 
 	/**
 	 * @return mixed
 	 */
-	public function getOrderId()
+	public function getId()
 	{
-		return $this->orderId;
+		return $this->id;
 	}
 
 	/**
@@ -82,16 +80,16 @@ class Bestelling
 	/**
 	 * @return mixed
 	 */
-	public function getPizza()
+	public function getPizzaId()
 	{
-		return $this->pizza;
+		return $this->pizzaId;
 	}
 
 	/**
-	 * @param mixed $pizza
+	 * @param mixed $pizzaId
 	 */
-	public function setPizza($pizza)
+	public function setPizzaId($pizzaId)
 	{
-		$this->pizza = $pizza;
+		$this->pizzaId = $pizzaId;
 	}
 }
