@@ -1,0 +1,38 @@
+{% extends "base.twig" %}
+{% block content %}
+
+    <form action="registreren.php?action=process" method="post">
+        <h2>Registreren</h2>
+        <div class="form-group">
+            <label for="naam">Naam</label><input type="text" id="naam" name="naam" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="voornaam">Voornaam</label><input type="text" id="voornaam" name="voornaam" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="straat">Straat</label><input type="text" id="straat" name="straat" class="form-control">
+
+            <label for="huisnummer">Huisnummer</label><input type="text" id="huisnummer" name="huisnummer" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="stad">Stad</label><input type="text" id="stad" name="stad" class="form-control">
+
+            <label for="postcide">Postcode</label><input type="text" id="postcide" name="postcide" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="telefoonnummer">Telefoonnummer of GSM</label><input type="text" id="telefoonnummer" name="telefoonnummer" class="form-control">
+        </div>
+        {% if account %}
+            <h2>Account maken</h2>
+            <div class="form-group">
+                <label for="email">E-mailadres</label><input type="email" id="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="wachtwoord">Wachtwoord</label><input type="text" id="wachtwoord" name="wachtwoord" class="form-control">
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <input type="submit" class="btn btn-default">
+        </div>
+    </form>
+{% endblock %}

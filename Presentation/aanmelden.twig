@@ -1,0 +1,15 @@
+{% extends "base.twig" %}
+{% block content %}
+    <form action="aanmelden.php?action=aanmelden" method="post">
+        <div class="form-group">
+        <label for="email">E-mail adres</label>
+        <input id="email" name="email" class="form-control" type="text" value="{{ email }}">
+        </div>
+        <div class="form-group">
+        <label for="wachtwoord">wachtwoord</label>
+        <input id="wachtwoord" name="wachtwoord" class="form-control" type="password">
+        </div>
+        <input class="btn btn-primary"  type="submit" value="Aanmelden">
+
+    </form>
+{% endblock %}

@@ -70,7 +70,7 @@ class ProductDAO
 			throw new BestaatException();
 		}
 		$dbh = DBConfig::openConnectie();
-		$sql = "update product set product naam=:naam,prijs=:prijs,beginDatum=:beginDatum,eindDatum=:eindDatum,promoKorting=:promoKorting,omschrijving=:omschrijving,extra:=extra where id =:id";
+		$sql = "update product set naam=:naam,prijs=:prijs,beginDatum=:beginDatum,eindDatum=:eindDatum,promoKorting=:promoKorting,omschrijving=:omschrijving,extra=:extra where id =:id";
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute(array(':naam'=>$product->getNaam(),':prijs'=>$product->getPrijs(),':beginDatum'=>$product->getBeginDatum(),':eindDatum'=>$product->getEindDatum(),':promoKorting'=>$product->getPromoKorting(),':omschrijving'=>$product->getOmschrijving(),':extra'=>$product->getExtra(),':id'=>$product->getId()));
 		$dbh = DBConfig::sluitConnectie();

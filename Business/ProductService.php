@@ -7,6 +7,7 @@
  * Time: 9:38
  */
 require_once "Data/ProductDAO.php";
+
 class ProductService
 {
 	public function toonProducten()
@@ -23,16 +24,16 @@ class ProductService
 		return $product;
 	}
 
-	public function voegNieuwPizzaToe($naam,$prijs,$beginDatum,$eindDatum,$promoKorting,$omschrijving)
+	public function voegNieuwPizzaToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving)
 	{
 		$pizzaDAO = new ProductDAO();
-		$pizzaDAO->create($naam,$prijs,$beginDatum,$eindDatum,$promoKorting,$omschrijving,0);
+		$pizzaDAO->create($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, 0);
 	}
 
-	public function voegNieuweExtraToe($naam,$prijs,$beginDatum,$eindDatum,$promoKorting,$omschrijving)
+	public function voegNieuweExtraToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving)
 	{
 		$extraDAO = new ProductDAO();
-		$extraDAO->create($naam,$prijs,$beginDatum,$eindDatum,$promoKorting,$omschrijving,1);
+		$extraDAO->create($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, 1);
 	}
 
 	public function verwijderProduct($id)
@@ -41,7 +42,7 @@ class ProductService
 		$productDAO->delete($id);
 	}
 
-	public function update($id,$naam,$prijs,$beginDatum,$eindDatum,$promoKorting,$omschrijving,$extra)
+	public function update($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, $extra)
 	{
 		$productDAO = new ProductDAO();
 		$product = $productDAO->getProductById($id);
@@ -54,8 +55,6 @@ class ProductService
 		$product->setExtra($extra);
 		$productDAO->update($product);
 	}
-
-
 
 
 }

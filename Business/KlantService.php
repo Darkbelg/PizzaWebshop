@@ -15,4 +15,10 @@ class KlantService
 		$klanten = $klantDAO->getKlanten();
 		return $klanten;
 	}
+
+	public function registreerKlant($registreerData)
+	{
+
+	}
+
 }

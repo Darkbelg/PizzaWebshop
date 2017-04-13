@@ -1,0 +1,19 @@
+{% extends "base.twig" %}
+{% block content %}
+
+    <h1 class="text-center">Aanmelden</h1>
+    <form action="aanmelden.php?action=aanmelden" method="post">
+        <div class="form-group text-center">
+        <input  class="btn btn-primary" type="submit" value="ik heb een account">
+        </div>
+    </form>
+    <form action="registreren.php?action=registreren" method="post">
+    <div class="form-group text-center">
+            <div class="checkbox">
+                <input type="checkbox" name="action" value="registreren" id="registreren">
+                <label for="registreren">account aanmaken</label></input>
+            </div>
+        <input class="btn btn-primary" type="submit" value="ik heb geen account">
+        </div>
+    </form>
+{% endblock %}
