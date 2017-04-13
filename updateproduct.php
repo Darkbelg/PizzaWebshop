@@ -8,20 +8,20 @@
 require_once ("bootstrap.php");
 require_once ("Business/ProductService.php");
 
-if(isset($_GET["action"])&& $_GET["action"]=="process"){
+if(isset($_GET["action"])&& ($_GET["action"]=="process")){
 	try{
 		$productSvc = new ProductService();
 		$productSvc->update($_GET["id"], $_POST["txtNaam"], $_POST["txtPrijs"], $_POST["txtBeginDatum"], $_POST["txtEindDatum"], $_POST["txtPromoKorting"], $_POST["txtOmschrijving"]);
 		$product= $productSvc->haalProductOp($_GET["id"]);
 		if($product->getExtra()==1) {
-			header("location:toonAlleExtras.php");
+			header("location:toonalleextras.php");
 			exit(0);
 		}else{
-			header("location:toonAllePizzas.php");
+			header("location:toonallepizzas.php");
 			exit(0);
 		}
 		}catch(BestaatException $ex){
-		header("location:updateProduct.php?id=" . $_GET["id"] . "&error=productbestaat");
+		header("location:updateproduct.php?id=" . $_GET["id"] . "&error=productbestaat");
 		exit(0);
 	}
 }else {

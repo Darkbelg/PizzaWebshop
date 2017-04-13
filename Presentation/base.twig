@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="Libraries/bootstrap/css/bootstrap.css">
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="Libraries/bootstrap/js/bootstrap.js"></script>
+        <link rel="stylesheet" href="css/style.css">
     {% endblock %}
 </head>
 <body>
@@ -19,8 +20,8 @@
 
 <div class="container">{% block content %}{% endblock %}</div>
 
-<footer>
-    <div class="container">
+<footer class="footer" >
+    <div class="container" >
     {% block footer %}
         &copy; Copyright 2011 by <a href="http://domain.invalid/">you</a>.
     {% endblock %}

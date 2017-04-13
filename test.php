@@ -10,11 +10,10 @@ require_once "Entities/Stad.php";
 
 
 try {
-	$stadDAO = new StadDAO();
+	$productDAO = new ProductDAO();
 
-	$stadDAO->delete("4");
-	$stadDAO->create("Tilt","8700");
-	$steden = $stadDAO->getAlleSteden();
+	$productDAO->update("4");
+	$pizza = $productDAO->getProductById();
 	print "<pre>";
 	print_r($steden);
 	print "</pre>";

@@ -15,7 +15,7 @@
  *
  * <pre>
  *  {% block head %}
- *    <link rel="stylesheet" href="style.css" />
+ *    <link rel="stylesheet" href="css.css" />
  *    <title>{% block title %}{% endblock %} - My Webpage</title>
  *  {% endblock %}
  * </pre>
