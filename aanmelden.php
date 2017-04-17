@@ -12,6 +12,7 @@ session_start();
 
 if (isset($_SESSION["klant"])) {
 	echo "U bent aangemeld";
+	Doorverwijzen::doorverwijzen("toonallepizzas.php");
 }
 
 if (isset($_GET["action"]) && $_GET["action"] == "aanmelden") {

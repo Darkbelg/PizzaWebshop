@@ -13,6 +13,7 @@ session_start();
 $twigarray = array();
 if (isset($_SESSION["winkelmandje"])){
 	$winkelmandje = unserialize($_SESSION["winkelmandje"]);
+	print_r($winkelmandje);
 	$twigarray["winkelmandje"] = $winkelmandje;
 
 }else{

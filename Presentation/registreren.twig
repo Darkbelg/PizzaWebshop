@@ -4,31 +4,31 @@
     <form action="registreren.php?action=process" method="post">
         <h2>Registreren</h2>
         <div class="form-group">
-            <label for="naam">Naam</label><input type="text" id="naam" name="naam" class="form-control">
+            <label for="naam">Naam</label><input type="text" id="naam" name="naam" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="voornaam">Voornaam</label><input type="text" id="voornaam" name="voornaam" class="form-control">
+            <label for="voornaam">Voornaam</label><input type="text" id="voornaam" name="voornaam" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="straat">Straat</label><input type="text" id="straat" name="straat" class="form-control">
+            <label for="straat">Straat</label><input type="text" id="straat" name="straat" class="form-control" required>
 
-            <label for="huisnummer">Huisnummer</label><input type="text" id="huisnummer" name="huisnummer" class="form-control">
+            <label for="huisnummer">Huisnummer</label><input type="text" id="huisnummer" name="huisnummer" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="stad">Stad</label><input type="text" id="stad" name="stad" class="form-control">
+            <label for="stad">Stad</label><input type="text" id="stad" name="stad" class="form-control" required>
 
-            <label for="postcide">Postcode</label><input type="text" id="postcide" name="postcide" class="form-control">
+            <label for="postcode">Postcode</label><input type="text" id="postcode" name="postcode" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="telefoonnummer">Telefoonnummer of GSM</label><input type="text" id="telefoonnummer" name="telefoonnummer" class="form-control">
+            <label for="telefoonnummer">Telefoonnummer of GSM</label><input type="text" id="telefoonnummer" name="telefoon" class="form-control" required>
         </div>
         {% if account %}
             <h2>Account maken</h2>
             <div class="form-group">
-                <label for="email">E-mailadres</label><input type="email" id="email" name="email" class="form-control">
+                <label for="email">E-mailadres</label><input type="email" id="email" name="email" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="wachtwoord">Wachtwoord</label><input type="text" id="wachtwoord" name="wachtwoord" class="form-control">
+                <label for="wachtwoord">Wachtwoord</label><input type="password" id="wachtwoord" name="wachtwoord" class="form-control" required>
             </div>
         {% endif %}
         <div class="form-group">

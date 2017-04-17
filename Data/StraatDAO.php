@@ -12,7 +12,7 @@ require_once "Exceptions/StraatBestaatException.php";
 
 class StraatDAO
 {
-	public function getStraatById($id)
+	public static function getStraatById($id)
 	{
 		$dbh= DBConfig::openConnectie();
 		$sql = "select * from straat WHERE id =:id";
