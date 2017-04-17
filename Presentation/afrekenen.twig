@@ -1,4 +1,27 @@
 {% extends "base.twig" %}
 {% block content %}
-    <h1>Afrekenen</h1>
+    <div class="jumbotron">
+        <h1>Afrekenen</h1>
+    </div>
+    {% if winkelmandje %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Prijs</th>
+            <th>Omschrijving</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for pizza in winkelmandje %}
+            <tr>
+                <td>{{ pizza.product.naam }}</td>
+                <td>&euro;{{ pizza.product.prijs }} </td>
+                <td>{{ pizza.product.omschrijving }} </td>
+                <td>{{ pizza.aantal }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 {% endblock %}
