@@ -5,5 +5,6 @@
  * Date: 18-Apr-17
  * Time: 20:45
  */
+require_once ("bootstrap.php");
+Doorverwijzen::doorverwijzen("toonallepizzas.php");
 ?>
-<h1>Hello world</h1>
