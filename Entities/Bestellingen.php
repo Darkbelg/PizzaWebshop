@@ -57,7 +57,7 @@ class Bestellingen
 	public static function create($id, $datum, $tijdstip, $info, $klant, $straat, $plaats, $bestellijn)
 	{
 		if (!isset(self::$idMap[$id])) {
-			self::$idMap[$id] = new BestellingenDAO($id, $datum, $tijdstip, $info, $klant, $straat, $plaats, $bestellijn);
+			self::$idMap[$id] = new Bestellingen($id, $datum, $tijdstip, $info, $klant, $straat, $plaats, $bestellijn);
 		}
 		return self::$idMap[$id];
 	}

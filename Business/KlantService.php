@@ -7,7 +7,9 @@
  * Time: 13:30
  */
 require_once("Data/KlantDAO.php");
+require_once ("Data/StadDao.php");
 require_once("Exceptions/BestaatException.php");
+require_once ("Exceptions/BuitenLevergebiedException.php");
 
 class KlantService
 {
@@ -35,5 +37,33 @@ class KlantService
             return $klant;
 
     }
+
+	public function getKlant($klantNummer)
+	{
+		$klantDAO = new KlantDAO();
+		print_r($klantNummer);
+		$klant = $klantDAO->getAccountById($klantNummer);
+		$klant->setWachtwoord("");
+		return $klant;
+	}
+
+	public function controleerRegio($stad)
+	{
+		$stadDao = new StadDAO();
+		$leverGebied = $stadDao->getLevergebied();
+		$stad = $stadDao->getByStad($stad);
+		if(array_search($stad,$leverGebied)===false){
+			throw new BuitenLevergebiedException();
+		}
+
+
+	}
+
+	public function toonLeverGebied()
+	{
+		$stadDao = new StadDAO();
+		$lijst = $stadDao->getLevergebied();
+		return $lijst;
+	}
 
 }

@@ -29,7 +29,7 @@ if (isset($_GET["action"])) {
             if (isset($_POST["email"])) {
                 $klant = $klantServ->registreerAccount($_POST["email"], $_POST["wachtwoord"],$klant->getKlantnummer());
             }
-            $_SESSION["klant"] = serialize($klant);
+            $_SESSION["klant"] = serialize($klant->getKlantnummer());
             print $klant->getNaam();
 
             Doorverwijzen::doorverwijzen("afrekenen.php");

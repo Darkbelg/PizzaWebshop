@@ -4,24 +4,80 @@
         <h1>Afrekenen</h1>
     </div>
     {% if winkelmandje %}
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Naam</th>
-            <th>Prijs</th>
-            <th>Omschrijving</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for pizza in winkelmandje %}
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>{{ pizza.product.naam }}</td>
-                <td>&euro;{{ pizza.product.prijs }} </td>
-                <td>{{ pizza.product.omschrijving }} </td>
-                <td>{{ pizza.aantal }}</td>
+                <th>Naam</th>
+                <th>Prijs</th>
+                <th>Omschrijving</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% set som = 0 %}
+            {% for pizza in winkelmandje %}
+                <tr>
+                    <td>{{ pizza.product.naam }}</td>
+                    <td>&euro; {{ pizza.product.prijs }} </td>
+                    <td>{{ pizza.product.omschrijving }} </td>
+                    <td>{{ pizza.aantal }}</td>
+                </tr>
+                {% set som = som + (pizza.product.prijs*pizza.aantal) %}
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>Totaalprijs:</td>
+                <td>&euro; {{ som }}
+
+                </td>
+                <td><a href="toonAllePizzas.php">Wijzig winkelmandje</a></td>
+            </tr>
+            </tfoot>
+            </tbody>
+        </table>
+
+        {% if error %}
+            <div class="container">
+            <p class="alert alert-danger">
+            {{ error }}</p>
+            </div>
+        {% endif %}
+        <form action="bestelling.php?action=toevoegen" method="post">
+            <div class="form-group">
+                <label for="straat">Straat</label><input class="form-control" id="straat" name="straat" type="text" required
+                                                         value="{% if not error %}{{ klant.straat.straat }}{% endif %}">
+            </div>
+            <div class="form-group">
+                <label for="huisnummer">Huisnummer</label><input class="form-control" id="huisnummer" name="huisnummer"
+                                                                 type="text" required value="{% if not error %}{{ klant.straat.huisnummer }}{% endif %}">
+            </div>
+            <div class="form-group">
+                <label for="stad">Stad</label><input list="stadLijst" class="form-control" id="stad" name="stad" type="text" required
+                                                     value="{% if not error %}{{ klant.stad.stad }}{% endif %}">
+                <datalist id="stadLijst">
+                    {% for stad in steden %}
+                        <option value="{{ stad.stad }}"></option>
+                        {% endfor %}
+                </datalist>
+            </div>
+            {#<div class="form-group">#}
+                {#<label for="postcode">Postcode</label><input class="form-control" id="postcode" name="postcode"#}
+                                                             {#type="text" required value="{% if not error %}{{ klant.stad.postcode }}{% endif %}">#}
+            {#</div>#}
+            <div class="form-group">
+                <label for="tijd">Tijdstip levering </label>
+                <input id="tijd" name="tijd" type="datetime-local">
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Bestellen">
+            </div>
+
+
+        </form>
+
+
     {% endif %}
 {% endblock %}
