@@ -4,6 +4,11 @@
     <div class="jumbotron">
     <h1>Alle pizza's waarvan je ooit had kunnen dromen!</h1>
     </div>
+    {% if bestelling %}
+    <div class="alert alert-success">
+        {{ bestelling }}
+    </div>
+{% endif %}
         <table class="table table-striped">
         <thead>
         <tr>

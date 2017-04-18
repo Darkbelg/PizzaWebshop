@@ -92,4 +92,17 @@ class StadDAO
 		$stmt->execute(array(':stad'=>$stad->getStad(),':postcode'=>$stad->getPostcode(),':id'=>$stad->getId()));
 		$dbh = DBConfig::sluitConnectie();
 	}
+
+	public function getLevergebied()
+	{
+		$dbh = DBConfig::openConnectie();
+		$sql = "select * from levergebied INNER  JOIN  stad on levergebied.plaatsId = stad.id";
+		$resultSet = $dbh->query($sql);
+		$lijst = array();
+		foreach ($resultSet as $rij){
+			$stad = Stad::create($rij["id"],$rij["postcode"],$rij["stad"]);
+			array_push($lijst,$stad);
+		}
+		return $lijst;
+	}
 }

@@ -5,6 +5,7 @@
  * Date: 13/04/2017
  * Time: 11:14
  */
+
 require_once("bootstrap.php");
 require_once("Business/AanmeldenService.php");
 require_once("Exceptions/FouteLoginException.php");
@@ -22,7 +23,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "aanmelden") {
 			$wachtwoord = $_POST["wachtwoord"];
 			$aanmeldServ = new AanmeldenService();
 			$klant = $aanmeldServ->aanmelden($email, $wachtwoord);
-			$_SESSION["klant"] = serialize($klant);
+			$_SESSION["klant"] = serialize($klant->getKlantNummer());
 			//$_COOKIE["email"] = $klant->getEmailadres();
 			setcookie("email", $klant->getEmailadres(), time() + 3600);
 			Doorverwijzen::doorverwijzen("afrekenen.php");

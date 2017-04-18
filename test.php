@@ -7,17 +7,18 @@
  */
 require_once "Business/KlantService.php";
 require_once "Exceptions/BestaatException.php";
-require_once "Data/KlantDAO.php";
+require_once "Data/BestellingenDAO.php";
+require_once "Business/BestelService.php";
+
 
 
 try {
-	$klantDao = new KlantService();
-	$klant = array("naam"=>"bourn","voornaam"=>"jas","telefoon"=>"0476708084","straat"=>"jasonstreet","huisnummer"=>"28","stad"=>"bourne","postcode"=>"5600");
-    $klant = $klantDao->registreerKlant($klant);
-    $klant = $klantDao->registreerAccount("jason.bourne@nasa.com","123456789",$klant->getKlantnummer());
+	$bestellingenServ = new BestelService();
+	$winkelmandje = array(array("aantal"=>"1","productId"=>"1"),array("aantal"=>"2","productId"=>"4"));
 
+	$bestelling = $bestellingenServ->nieuweBestelling("2017-04-18","15:45:00","3","cornationStreet","36","Tielt",$winkelmandje);
     print "<pre>";
-	print_r($klant);
+	print_r($bestelling);
 	print "</pre>";
 }catch (BestaatException $ex){
 	print("het bestaat al");

@@ -5,6 +5,7 @@
  * Date: 13/04/2017
  * Time: 8:53
  */
+
 require_once ("Business/ProductService.php");
 require_once ("bootstrap.php");
 session_start();
@@ -16,14 +17,11 @@ if (isset($_SESSION["winkelmandje"])){
 }
 if (isset($_GET["action"])&& $_GET["action"]=="toevoegen"){
 	$id = $_GET["id"];
-	$productService = new ProductService();
-	$product= $productService->haalProductOp($id);
-
-	if($winkelmandje[$product->getId()]){
-		$winkelmandje[$product->getId()]["aantal"] += 1;
+	if($winkelmandje[$id]){
+		$winkelmandje[$id]["aantal"] += 1;
 	}else{
-		$aantal = array("product" => $product,"aantal"=> 1);
-		$winkelmandje[$product->getId()] = $aantal;
+		$aantal = array("product" => $id,"aantal"=> 1);
+		$winkelmandje[$id] = $aantal;
 	}
 
 	$_SESSION["winkelmandje"] = serialize($winkelmandje);
