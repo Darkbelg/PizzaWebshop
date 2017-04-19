@@ -31,7 +31,7 @@ if (isset($_GET["action"])) {
             }
             $_SESSION["klant"] = serialize($klant->getKlantnummer());
             print $klant->getNaam();
-
+			setcookie("email", $klant->getEmailadres(), time() + 3600);
             Doorverwijzen::doorverwijzen("afrekenen.php");
 
         } else {
