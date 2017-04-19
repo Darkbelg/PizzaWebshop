@@ -20,18 +20,18 @@ if (isset($_SESSION["klant"]) && isset($_SESSION["winkelmandje"])) {
 	$productSvc = new ProductService();
 	foreach ($sWinMand as $product){
 		$idP = $product["product"];
-		$product["product"] = $productSvc->haalProductOp($idP);
+		$product["product"] = $productSvc->getById($idP);
 		$sWinMand[$product["product"]->getId()] = $product;
 
 	}
 	$twigArray["winkelmandje"] = $sWinMand;
 	$klantServ = new KlantService();
-	print_r($klantNummer);
-	$klant = $klantServ->getKlant($klantNummer);
+	$klant = $klantServ->getById($klantNummer);
 	try{
 		$klantServ->controleerRegio($klant->getStad()->getStad());
 	}catch (BuitenLevergebiedException $ex){
 		$twigArray["error"] = "Wij leveren niet in deze stad.";
+		$twigArray["leverStad"] = $klantServ->toonLeverGebied();
 	}
 	$steden = $klantServ->toonLeverGebied();
 	$twigArray["steden"]=$steden;

@@ -37,10 +37,16 @@
         </table>
 
         {% if error %}
-            <div class="container">
-            <p class="alert alert-danger">
-            {{ error }}</p>
+            <div class="panel panel-danger">
+            <div class="panel-heading">
+            <strong>{{ error }}</strong> Wel in de volgende steden:</div>
+            <div class="panel-body">
+           {% for stad in leverStad %}
+            {{ stad.stad }}<br />
+           {% endfor %}
             </div>
+            </div>
+
         {% endif %}
         <form action="bestelling.php?action=toevoegen" method="post">
             <div class="form-group">

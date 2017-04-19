@@ -11,7 +11,7 @@ require_once "DBConfig.php";
 
 class ZaakDAO
 {
-	public function getZaak($naam){
+	public function getByNaam($naam){
 		$sql = "select * from zaak WHERE naam=:naam";
 		$dbh = DBConfig::openConnectie();
 		$stmt = $dbh->prepare($sql);

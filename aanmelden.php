@@ -12,37 +12,44 @@ require_once("Exceptions/FouteLoginException.php");
 session_start();
 
 if (isset($_SESSION["klant"])) {
-	echo "U bent aangemeld";
-	Doorverwijzen::doorverwijzen("toonallepizzas.php");
-}
-
-if (isset($_GET["action"]) && $_GET["action"] == "aanmelden") {
-	if (isset($_POST["email"]) && isset($_POST["wachtwoord"])) {
-		try {
-			$email = $_POST["email"];
-			$wachtwoord = $_POST["wachtwoord"];
-			$aanmeldServ = new AanmeldenService();
-			$klant = $aanmeldServ->aanmelden($email, $wachtwoord);
-			$_SESSION["klant"] = serialize($klant->getKlantNummer());
-			//$_COOKIE["email"] = $klant->getEmailadres();
-			setcookie("email", $klant->getEmailadres(), time() +  (10 * 365 * 24 * 60 * 60));
-			Doorverwijzen::doorverwijzen("afrekenen.php");
-		} catch (FouteLoginException $ex) {
-			$view = $twig->render("aanmelden.twig");
-			echo "Foutte inloggegevens";
-		}
-
-	} else {
-		if (isset($_COOKIE["email"])) {
-			$twigarray = array("email"=> $_COOKIE["email"]);
-			$view = $twig->render("aanmelden.twig", $twigarray);
-		} else {
-			$view = $twig->render("aanmelden.twig");
-		}
-
+	if ($_GET["action"]=="afmelden"){
+		unset($_SESSION["klant"]);
+		Doorverwijzen::doorverwijzen("toonallepizzas.php");
+	}else {
+		Doorverwijzen::doorverwijzen("toonallepizzas.php");
 	}
-} else {
-	$view = $twig->render("aanmeldkeuze.twig");
+}
+if(isset($_GET["action"])){
+
+	if ( $_GET["action"] == "aanmelden") {
+		if (isset($_POST["email"]) && isset($_POST["wachtwoord"])) {
+			try {
+				$email = $_POST["email"];
+				$wachtwoord = $_POST["wachtwoord"];
+				$aanmeldServ = new AanmeldenService();
+				$klant = $aanmeldServ->aanmelden($email, $wachtwoord);
+				$_SESSION["klant"] = serialize($klant->getKlantNummer());
+				//$_COOKIE["email"] = $klant->getEmailadres();
+				setcookie("email", $klant->getEmailadres(), time() +  (10 * 365 * 24 * 60 * 60));
+				Doorverwijzen::doorverwijzen("afrekenen.php");
+			} catch (FouteLoginException $ex) {
+				$view = $twig->render("aanmelden.twig");
+				echo "Foutte inloggegevens";
+			}
+
+		} else {
+			if (isset($_COOKIE["email"])) {
+				$twigarray = array("email"=> $_COOKIE["email"]);
+				$view = $twig->render("aanmelden.twig", $twigarray);
+			} else {
+				$view = $twig->render("aanmelden.twig");
+			}
+
+		}
+	} else {
+		$view = $twig->render("aanmeldkeuze.twig");
+	}
+
 }
 
 print ($view);

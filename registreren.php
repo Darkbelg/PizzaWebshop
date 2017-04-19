@@ -9,9 +9,9 @@ require_once("bootstrap.php");
 require_once("Business/KlantService.php");
 session_start();
 if (isset($_GET["action"])) {
-    if ($_GET["action"] == "registreren") {
+    if ($_GET["action"] == "registreren"|$_GET["action"]=="registreeraccount") {
 
-        if (isset($_POST["action"]) && $_POST["action"] == "registreren") {
+        if ((isset($_POST["action"]) && $_POST["action"] == "registreren")| $_GET["action"]=="registreeraccount") {
             $twigarray = array("account" => true);
             $view = $twig->render("registreren.twig", $twigarray);
         } else {
@@ -25,7 +25,7 @@ if (isset($_GET["action"])) {
         if (isset($_POST["naam"])) {
 
             $klantServ = new KlantService();
-            $klant = $klantServ->registreerKlant($_POST);
+            $klant = $klantServ->create($_POST);
             if (isset($_POST["email"])) {
                 $klant = $klantServ->registreerAccount($_POST["email"], $_POST["wachtwoord"],$klant->getKlantnummer());
             }

@@ -31,7 +31,7 @@
                     {#<a href="verwijderProduct.php?id={{ pizza.id }}">Verwijder</a>#}
                 {#</td>#}
                 <td>
-                    <a href="winkelmandje.php?action=toevoegen&id={{ pizza.id }}"> Toevoegen</a>
+                    <a href="winkelmandje.php?action=toevoegen&id={{ pizza.id }}"> <span class="glyphicon glyphicon-plus-sign"></span><span class="glyphicon glyphicon-shopping-cart"></span></a>
                 </td>
             </tr>
             {%  endif %}
@@ -58,7 +58,7 @@
             <td>&euro;{{ pizza.product.prijs }} </td>
             <td>{{ pizza.product.omschrijving }} </td>
             <td>{{ pizza.aantal }}</td>
-                <td><a href="winkelmandje.php?action=verwijder&id={{ pizza.product.id }}"> Verwijder</a>
+                <td><a href="winkelmandje.php?action=verwijder&id={{ pizza.product.id }}"><span class="glyphicon glyphicon-minus-sign"></span><span class="glyphicon glyphicon-shopping-cart"></span></a>
                 </td>
             </tr>
         {% endfor  %}
