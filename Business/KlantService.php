@@ -59,4 +59,10 @@ class KlantService
 		return $lijst;
 	}
 
+	public function isBeheerder($klantNummer)
+	{
+		$klantDao = new KlantDAO();
+		return ($klantDao->getById($klantNummer)->getBeheerder())==1;
+	}
+
 }

@@ -17,6 +17,9 @@
             <div class="navbar-header">
                 <a href="toonallepizzas.php" class="navbar-brand">Papi pizza</a>
             </div>
+            {% block navigatie %}
+
+            {% endblock %}
             <ul class="nav navbar-nav navbar-right">
                 {% if klant %}
                     <li><a href="aanmelden.php?action=afmelden"><span class="glyphicon glyphicon-log-in"> Afmelden</span></a></li>

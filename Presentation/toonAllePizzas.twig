@@ -2,14 +2,14 @@
 
 {% block content %}
     <div class="jumbotron">
-    <h1>Alle pizza's waarvan je ooit had kunnen dromen!</h1>
+        <h1>Alle pizza's waarvan je ooit had kunnen dromen!</h1>
     </div>
     {% if bestelling %}
-    <div class="alert alert-success">
-        {{ bestelling }}
-    </div>
-{% endif %}
-        <table class="table table-striped">
+        <div class="alert alert-success">
+            {{ bestelling }}
+        </div>
+    {% endif %}
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Naam</th>
@@ -20,51 +20,57 @@
         <tbody>
         {% for pizza in producten %}
             {% if pizza.extra == 0 %}
-            <tr>
-                <td>{{ pizza.naam }}</td>
-                <td>&euro;{{ pizza.prijs }} </td>
-                <td>{{ pizza.omschrijving }} </td>
-                {#<td>#}
+                <tr>
+                    <td>{{ pizza.naam }}</td>
+                    <td>&euro;{{ pizza.prijs }} </td>
+                    <td>{{ pizza.omschrijving }} </td>
+                    {#<td>#}
                     {#<a href="updateProduct.php?id={{ pizza.id }}">Wijzigen</a>#}
-                {#</td>#}
-                {#<td>#}
+                    {#</td>#}
+                    {#<td>#}
                     {#<a href="verwijderProduct.php?id={{ pizza.id }}">Verwijder</a>#}
-                {#</td>#}
-                <td>
-                    <a href="winkelmandje.php?action=toevoegen&id={{ pizza.id }}"> <span class="glyphicon glyphicon-plus-sign"></span><span class="glyphicon glyphicon-shopping-cart"></span></a>
-                </td>
-            </tr>
-            {%  endif %}
+                    {#</td>#}
+                    <td>
+                        <a href="winkelmandje.php?action=toevoegen&id={{ pizza.id }}"> <span
+                                    class="glyphicon glyphicon-plus-sign"></span><span
+                                    class="glyphicon glyphicon-shopping-cart"></span></a>
+                    </td>
+                </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
 
     </table>
     {% if winkelmandje %}
-    <h1>Winkelmandje</h1>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Naam</th>
-            <th>Prijs</th>
-            <th>Omschrijving</th>
-            <th>Aantal</th>
-        </tr>
 
-        </thead>
-        <tbody>
-        {% for pizza in winkelmandje %}
+        <h1>Winkelmandje</h1>
+        <table class="table table-striped">
+            <thead>
             <tr>
-            <td>{{ pizza.product.naam }}</td>
-            <td>&euro;{{ pizza.product.prijs }} </td>
-            <td>{{ pizza.product.omschrijving }} </td>
-            <td>{{ pizza.aantal }}</td>
-                <td><a href="winkelmandje.php?action=verwijder&id={{ pizza.product.id }}"><span class="glyphicon glyphicon-minus-sign"></span><span class="glyphicon glyphicon-shopping-cart"></span></a>
-                </td>
+                <th>Naam</th>
+                <th>Prijs</th>
+                <th>Omschrijving</th>
+                <th>Aantal</th>
             </tr>
-        {% endfor  %}
-        </tbody>
-    </table>
-        <form action="afrekenen.php" method="post"><input type="submit" class="btn btn-primary" value="Afrekenen"></form>
 
-{% endif %}
+            </thead>
+            <tbody>
+            {% for pizza in winkelmandje %}
+                <tr>
+                    <td>{{ pizza.product.naam }}</td>
+                    <td>&euro;{{ pizza.product.prijs }} </td>
+                    <td>{{ pizza.product.omschrijving }} </td>
+                    <td>{{ pizza.aantal }}</td>
+                    <td><a href="winkelmandje.php?action=verwijder&id={{ pizza.product.id }}"><span
+                                    class="glyphicon glyphicon-minus-sign"></span><span
+                                    class="glyphicon glyphicon-shopping-cart"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <form action="afrekenen.php" method="post"><input type="submit" class="btn btn-primary" value="Afrekenen">
+        </form>
+
+    {% endif %}
 {% endblock %}

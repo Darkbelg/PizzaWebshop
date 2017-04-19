@@ -1,0 +1,9 @@
+{% extends "base.twig" %}
+
+{% block navigatie %}
+    <ul class="nav navbar-nav">
+        <li {% block bestellingen %} {% endblock %}><a href="beheerder.php?p=b">Bestellingen</a></li>
+        <li {% block producten %} {% endblock %}><a href="beheerder.php?p=p">Producten</a></li>
+        <li {% block klanten %} {% endblock %}><a href="beheerder.php?p=k">Klanten</a></li>
+    </ul>
+{% endblock %}
