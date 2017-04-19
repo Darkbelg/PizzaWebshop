@@ -15,6 +15,7 @@ $twigarray = array();
 $productenSvc = new ProductService();
 $producten = $productenSvc->getAll();
 $twigarray["producten"]=$producten;
+
 if(isset($_GET["b"])&& $_GET["b"]=="s"){
 	$twigarray["bestelling"] = "Uw besteling is besteld.";
 	unset($_SESSION["winkelmandje"]);
@@ -33,7 +34,6 @@ if (isset($_SESSION["klant"])){
 	$klantNummer = unserialize($_SESSION["klant"]);
 	$twigarray["klant"] = $klantNummer;
 }
-
 
 
 $view = $twig->render("toonAllePizzas.twig",$twigarray);

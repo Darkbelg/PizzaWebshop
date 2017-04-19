@@ -29,7 +29,9 @@ if(isset($_GET["action"])){
 				$aanmeldServ = new AanmeldenService();
 				$klant = $aanmeldServ->aanmelden($email, $wachtwoord);
 				$_SESSION["klant"] = serialize($klant->getKlantNummer());
-				//$_COOKIE["email"] = $klant->getEmailadres();
+				if ($klant->getBeheerder()==1){
+					$_SESSION["beheerder"] = 1;
+				}
 				setcookie("email", $klant->getEmailadres(), time() +  (10 * 365 * 24 * 60 * 60));
 				Doorverwijzen::doorverwijzen("afrekenen.php");
 			} catch (FouteLoginException $ex) {
@@ -46,10 +48,10 @@ if(isset($_GET["action"])){
 			}
 
 		}
-	} else {
-		$view = $twig->render("aanmeldkeuze.twig");
 	}
 
+} else {
+	$view = $twig->render("aanmeldkeuze.twig");
 }
 
 print ($view);

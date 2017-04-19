@@ -1,5 +1,5 @@
-{% extends "base.twig" %}
-
+{% extends "beheerder/navigatie.twig" %}
+{% block klanten %}  class="active" {% endblock %}
 {% block content %}
     <table class="table table-striped">
         <thead>
@@ -25,8 +25,15 @@
                 <td>{{ klant.stad.stad }} </td>
                 <td>{{ klant.stad.postcode }} </td>
                 <td>{{ klant.straat.straat }} {{ klant.straat.huisnummer }} </td>
+                <td><a href="product.php?action=bewerken">Bewerken</a></td>
+                <td><a href="product.php?action=verwijderen"><span class="glyphicon glyphicon-minus-sign"></span></a></td>
             </tr>
         {% endfor %}
         </tbody>
+        <tfoot>
+        <tr>
+            <td><a href="product.php?action=toevoegen"><span class="glyphicon glyphicon-plus-sign"></span></a></td>
+        </tr>
+        </tfoot>
     </table>
 {% endblock %}
