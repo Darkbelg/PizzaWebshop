@@ -27,7 +27,7 @@ class ProductDAO
 }
 
 
-	public function getProductById($id){
+	public function getById($id){
 		$dbh=DBConfig::openConnectie();
 		$sql = "select * from product WHERE id = :id";
 		$stmt = $dbh->prepare($sql);
@@ -65,7 +65,7 @@ class ProductDAO
 
 	public function update($product)
 	{
-		$bestaatProduct = $this->getProductById($product->getId());
+		$bestaatProduct = $this->getById($product->getId());
 		if(!is_null($bestaatProduct)&&($bestaatProduct->getId()!=$product->getId())){
 			throw new BestaatException();
 		}

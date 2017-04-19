@@ -19,7 +19,7 @@ require_once "Exceptions/BestaatException.php";
 
 class KlantDAO
 {
-    public function getKlanten()
+    public function getAll()
     {
         $dbh = DBConfig::openConnectie();
         $sql = "SELECT klantNummer,naam,voornaam,telefoon, emailadres as email,wachtwoord,opmerking,promo,beheerder,
@@ -40,7 +40,7 @@ INNER JOIN straat on straat.id = klant.straatId";
 
     }
 
-    public function getAccountByEmail($email)
+    public function getByEmail($email)
     {
         $dbh = DBConfig::openConnectie();
         $sql = "SELECT klantNummer,naam,voornaam,telefoon, emailadres as email,wachtwoord,opmerking,promo,beheerder,
@@ -58,7 +58,7 @@ where emailadres = :email";
         return $klant;
     }
 
-    public function getAccountById($klantNummer)
+    public function getById($klantNummer)
     {
         $dbh = DBConfig::openConnectie();
         $sql = "SELECT klantNummer,naam,voornaam,telefoon, emailadres as email,wachtwoord,opmerking,promo,beheerder,
@@ -95,7 +95,7 @@ where klantNummer = :klantNummer";
 
         if ($bestaatKlant) {
 
-            return $klant = $this->getAccountById($bestaatKlant);
+            return $klant = $this->getById($bestaatKlant);
         }
 
         $stadDao = new StadDAO();
@@ -104,7 +104,7 @@ where klantNummer = :klantNummer";
         try {
             $stad = $stadDao->create($stad, $postcode);
         } catch (BestaatException $ex) {
-            $stad = $stadDao->getByStad($stad);
+            $stad = $stadDao->getByNaam($stad);
         }
         try {
             $straat = $straatDao->create($straat, $huisnummer);
@@ -119,16 +119,17 @@ where klantNummer = :klantNummer";
 
         $id = $dbh->lastInsertId();
         $dbh = DBConfig::sluitConnectie();
-        $klant = $this->getAccountById($id);
+        $klant = $this->getById($id);
 
         return $klant;
     }
 
-    /**
-     * @param $naam
-     * @param $voornaam
-     * @param $telefoon
-     */
+	/**
+	 * @param $naam
+	 * @param $voornaam
+	 * @param $telefoon
+	 * @return klantnummer
+	 */
     private function bestaatKlant($naam, $voornaam, $telefoon)
     {
         $dbh = DBConfig::openConnectie();
@@ -149,7 +150,7 @@ where klantNummer = :klantNummer";
         $stmt->execute(array(":email" => $email, ":wachtwoord" => $wachtHash, ":klantNummer" => $klantNummer));
 
         $dbh = DBConfig::sluitConnectie();
-        $klant = $this->getAccountById($klantNummer);
+        $klant = $this->getById($klantNummer);
         return $klant;
     }
 

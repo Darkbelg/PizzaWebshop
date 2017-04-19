@@ -9,6 +9,6 @@ require_once "Business/ProductService.php";
 require_once "bootstrap.php";
 
 $productenSvc = new ProductService();
-$producten = $productenSvc->toonProducten();
+$producten = $productenSvc->getAll();
 $view = $twig->render("toonAlleExtras.twig",array("producten"=>$producten));
 print $view;

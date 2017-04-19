@@ -80,12 +80,12 @@ class BestellingenDAO
 		$id = $dbh->lastInsertId();
 
 		$dbh = DBConfig::sluitConnectie();
-		$bestelling = $this->getBestellingById($id);
+		$bestelling = $this->getById($id);
 		return $bestelling;
 
 	}
 
-	public function getBestellingById($id)
+	public function getById($id)
 	{
 		$dbh = DBConfig::openConnectie();
 		$sql = "select * from bestellingen WHERE id = :id";

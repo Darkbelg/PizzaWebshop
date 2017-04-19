@@ -12,11 +12,21 @@
     {% endblock %}
 </head>
 <body>
-<header class="page-header">
-    <div class="container">
-        <h1>Papi pizza</h1>
-    </div>
-</header>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="toonallepizzas.php" class="navbar-brand">Papi pizza</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if klant %}
+                    <li><a href="aanmelden.php?action=afmelden"><span class="glyphicon glyphicon-log-in"> Afmelden</span></a></li>
+                {% else %}
+                    <li><a href="registreren.php?action=registreeraccount"><span class="glyphicon glyphicon-user"> Registreer</span></a></li>
+                <li><a href="aanmelden.php?action=aanmelden"><span class="glyphicon glyphicon-log-in"> Aanmelden</span></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
 
 <div class="container">{% block content %}{% endblock %}</div>
 

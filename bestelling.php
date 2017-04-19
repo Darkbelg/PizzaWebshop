@@ -23,7 +23,7 @@ if (isset($_GET["action"])){
 		$sWinMan = unserialize($_SESSION["winkelmandje"]);
 		$klantNummer = unserialize($_SESSION["klant"]);
 
-		$klant = $klantServ->getKlant($klantNummer);
+		$klant = $klantServ->getById($klantNummer);
 		try{
 			$klantServ->controleerRegio($stad);
 		}catch (BuitenLevergebiedException $ex){

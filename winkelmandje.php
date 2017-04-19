@@ -9,6 +9,7 @@
 require_once ("Business/ProductService.php");
 require_once ("bootstrap.php");
 session_start();
+
 $winkelmandje = array();
 if (isset($_SESSION["winkelmandje"])){
 	$winkelmandje = unserialize($_SESSION["winkelmandje"]);

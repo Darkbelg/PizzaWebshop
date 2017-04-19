@@ -10,17 +10,17 @@ require_once "Data/ProductDAO.php";
 
 class ProductService
 {
-	public function toonProducten()
+	public function getAll()
 	{
 		$productDAO = new ProductDAO();
 		$product = $productDAO->getAll();
 		return $product;
 	}
 
-	public function haalProductOp($id)
+	public function getById($id)
 	{
 		$productDAO = new ProductDAO();
-		$product = $productDAO->getProductById($id);
+		$product = $productDAO->getById($id);
 		return $product;
 	}
 
@@ -36,7 +36,7 @@ class ProductService
 		$extraDAO->create($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, 1);
 	}
 
-	public function verwijderProduct($id)
+	public function verwijder($id)
 	{
 		$productDAO = new ProductDAO();
 		$productDAO->delete($id);
@@ -45,7 +45,7 @@ class ProductService
 	public function update($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, $extra)
 	{
 		$productDAO = new ProductDAO();
-		$product = $productDAO->getProductById($id);
+		$product = $productDAO->getById($id);
 		$product->setNaam($naam);
 		$product->setPrijs($prijs);
 		$product->setBeginDatum($beginDatum);

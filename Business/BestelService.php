@@ -22,7 +22,7 @@ class BestelService{
 		}catch (StraatBestaatException $ex){
 			$straat = $straatDao->getByStraat($straat,$huisnummer);
 		}
-		$stad = $stadDao->getByStad($stad);
+		$stad = $stadDao->getByNaam($stad);
 		$bestellingen = $bestellingDao->create($datum,$tijdstip,$klantNummer,$straat->getId(),$stad->getId());
 
 
