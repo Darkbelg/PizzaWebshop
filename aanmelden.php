@@ -25,7 +25,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "aanmelden") {
 			$klant = $aanmeldServ->aanmelden($email, $wachtwoord);
 			$_SESSION["klant"] = serialize($klant->getKlantNummer());
 			//$_COOKIE["email"] = $klant->getEmailadres();
-			setcookie("email", $klant->getEmailadres(), time() + 3600);
+			setcookie("email", $klant->getEmailadres(), time() +  (10 * 365 * 24 * 60 * 60));
 			Doorverwijzen::doorverwijzen("afrekenen.php");
 		} catch (FouteLoginException $ex) {
 			$view = $twig->render("aanmelden.twig");
