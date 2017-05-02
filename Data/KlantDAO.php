@@ -154,6 +154,13 @@ where klantNummer = :klantNummer";
         return $klant;
     }
 
-
+	public function updateOpmerking($klantnummer,$opmerking)
+	{
+		$dbh = DBConfig::openConnectie();
+		$sql = "update klant set opmerking=:opmerking where klantnummer=:klantnummer";
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute(array(":opmerking"=>$opmerking,":klantnummer"=>$klantnummer));
+		$dbh = DBConfig::sluitConnectie();
+	}
 
 }

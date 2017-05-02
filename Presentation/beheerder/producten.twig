@@ -7,6 +7,14 @@
             {{ bestelling }}
         </div>
     {% endif %}
+    {% if error %}
+        <div class="panel panel-danger">
+
+            <div class="panel-heading">Er is iets fout gelopen</div>
+            <div class="panel-body">{{ error }}</div>
+
+        </div>
+    {% endif %}
     <h2>Alle pizza's</h2>
     <table class="table table-striped">
         <thead>

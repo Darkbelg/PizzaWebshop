@@ -5,6 +5,7 @@
  * Date: 10/04/2017
  * Time: 15:22
  */
+require_once ("Exceptions/BestaatException.php");
 require_once ("Libraries/Doorverwijzen.php");
 require_once("Libraries/Twig/Autoloader.php");
 Twig_Autoloader::register();

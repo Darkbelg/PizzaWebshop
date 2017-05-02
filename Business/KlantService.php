@@ -65,4 +65,11 @@ class KlantService
 		return ($klantDao->getById($klantNummer)->getBeheerder())==1;
 	}
 
+
+	public function updateOpmerking($klantnummer,$opmerking)
+	{
+		$klantDao = new KlantDAO();
+		$klantDao->updateOpmerking($klantnummer,$opmerking);
+
+	}
 }
