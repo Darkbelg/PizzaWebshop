@@ -24,13 +24,13 @@ class ProductService
 		return $product;
 	}
 
-	public function voegNieuwPizzaToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving)
+	public function voegNieuwPizzaToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving = "")
 	{
 		$pizzaDAO = new ProductDAO();
 		$pizzaDAO->create($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, 0);
 	}
 
-	public function voegNieuweExtraToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving)
+	public function voegNieuweExtraToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving = "")
 	{
 		$extraDAO = new ProductDAO();
 		$extraDAO->create($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, 1);
@@ -55,6 +55,4 @@ class ProductService
 		$product->setExtra($extra);
 		$productDAO->update($product);
 	}
-
-
 }
