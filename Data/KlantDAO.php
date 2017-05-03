@@ -1,6 +1,4 @@
 <?php
-// TODO CRUD
-//TODO aanpassen alle klanten
 
 /**
  * Created by PhpStorm.
