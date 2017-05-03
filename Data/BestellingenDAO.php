@@ -21,7 +21,7 @@ class BestellingenDAO
 		//TODO alle orders weergeven.
 		//Wat moet er in zo een order zitten ?
 		$dbh = DBConfig::openConnectie();
-		$sql = "select * from bestellingen";
+		$sql = "select * from bestellingen order BY  datum DESC ";
 		/*
 		 * Omvat alles in één sql statement
 		 * $sql = "select * from bestellingen INNER JOIN klant on bestellingen.klantNummer=klant.klantNummer INNER JOIN stad on stad.id = bestellingen.plaatsId INNER JOIN straat on straat.id = bestellingen.straatId";
