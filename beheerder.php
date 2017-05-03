@@ -28,15 +28,14 @@ if(isset($beheerder)&&$beheerder){
 		//welke bestellingen renderen
 		if ($_GET["p"] == "b") {
 			$bestelServ = new BestelService();
-
-			$view = $twig->render('beheerder/bestellingen.twig');
+			$twigarray["bestellingen"] = $bestelServ->getAll();
+			//print_r($twigarray["bestellingen"]);
+			$view = $twig->render('beheerder/bestellingen.twig',$twigarray);
 		}
 		//Welke product pagina renderen
 		if ($_GET["p"] == "p") {
 			$productServ = new ProductService();
-
 			$twigarray["producten"] = $productServ->getAll();
-
 			$view = $twig->render('beheerder/producten.twig',$twigarray);
 		}
 		// Welke klant pagina renderen

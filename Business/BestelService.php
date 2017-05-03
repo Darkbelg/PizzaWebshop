@@ -9,6 +9,7 @@ require_once "Data/BestellingenDAO.php";
 require_once "Data/StraatDAO.php";
 require_once "Data/StadDAO.php";
 require_once "Exceptions/StraatBestaatException.php";
+require_once "Data/KlantDao.php";
 
 
 class BestelService{
@@ -42,5 +43,39 @@ class BestelService{
 
 		}
 
+	}
+
+	public function getAll()
+	{
+		$bestelDao = new BestellingenDAO();
+		return $bestelDao->getAllOrders();
+	}
+
+	public function getBestellijnenById($id)
+	{
+		$bestellijnDao = new BestellingenDAO();
+		$bestellijnen = $bestellijnDao->getBestellijnen($id);
+		return $bestellijnen;
+	}
+
+	public function getBestellingById($bestellingId)
+	{
+		//Ophalen Klant
+		//Ophalen Straat
+		//Ophalen Stad
+
+		$bestellingenDao = new BestellingenDAO();
+		$bestelling = $bestellingenDao->getById($bestellingId);
+		//print_r($bestelling);
+		$klantDao = new KlantDAO();
+		$klant = $klantDao->getById($bestelling->getKlant());
+		//print_r($klant);
+		$bestelling->setKlant($klant);
+		$straat = StraatDAO::getById($bestelling->getStraat());
+		$bestelling->setStraat($straat);
+		$stadDao = new StadDAO();
+		$stad = $stadDao->getById($bestelling->getPlaats());
+		$bestelling->setPlaats($stad);
+		return $bestelling;
 	}
 }

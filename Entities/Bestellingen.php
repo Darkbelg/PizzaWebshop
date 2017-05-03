@@ -159,6 +159,15 @@ class Bestellingen
 	}
 
 	/**
+	 * @param mixed $klant
+	 */
+	public function setKlant($klant)
+	{
+		$this->klant = $klant;
+	}
+
+
+	/**
 	 * @return mixed
 	 */
 	public function getBestellijn()

@@ -15,11 +15,11 @@ class StadDAO
 	public function getById($id)
 	{
 		$dbh= DBConfig::openConnectie();
-		$sql = "select * from plaats WHERE plaatsId =:id";
+		$sql = "select * from stad WHERE id =:id";
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute(array(':id'=>$id));
 		$rij = $stmt->fetch(PDO::FETCH_ASSOC);
-		$stad = Stad::create($rij["plaatsId"],$rij["postcode"],$rij["stad"]);
+		$stad = Stad::create($rij["id"],$rij["postcode"],$rij["stad"]);
 		$dbh=DBConfig::sluitConnectie();
 		return $stad;
 	}
