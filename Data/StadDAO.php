@@ -1,5 +1,4 @@
 <?php
-// TODO CRUD
 /**
  * Created by PhpStorm.
  * User: cyber09

@@ -1,5 +1,4 @@
 <?php
-// TODO CRUD
 /**
  * Created by PhpStorm.
  * User: cyber09
@@ -18,10 +17,9 @@ class BestellingenDAO
 {
 	public function getAllOrders()
 	{
-		//TODO alle orders weergeven.
-		//Wat moet er in zo een order zitten ?
 		$dbh = DBConfig::openConnectie();
 		$sql = "select * from bestellingen order BY  datum DESC ";
+		//TODO verbetren sql statement
 		/*
 		 * Omvat alles in één sql statement
 		 * $sql = "select * from bestellingen INNER JOIN klant on bestellingen.klantNummer=klant.klantNummer INNER JOIN stad on stad.id = bestellingen.plaatsId INNER JOIN straat on straat.id = bestellingen.straatId";
@@ -84,10 +82,7 @@ class BestellingenDAO
 
 	}
 
-	//TODO create bestellingen
-	//TODO create bestelling
-	//TODO straat maken
-	//TODO plaats maken
+
 
 	/**
 	 * @param $datum
