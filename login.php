@@ -9,6 +9,7 @@ require_once "Business/KlantService.php";
 
 session_start();
 
+//altijd als laatste require_once omdat deze de session_start().
 if (isset($_SESSION["klant"])) {
 	$klantServ = new KlantService();
 	$beheerder = $klantServ->isBeheerder(unserialize($_SESSION["klant"]));
