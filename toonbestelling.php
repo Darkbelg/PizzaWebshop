@@ -9,8 +9,8 @@ require_once ("bootstrap.php");
 require_once ("Business/BestelService.php");
 require_once ("Business/KlantService.php");
 require_once ("Business/ProductService.php");
+require_once ("login.php");
 
-session_start();
 if (isset($_GET["id"])&& $_GET["id"] != "" ){
 	$id = $_GET["id"];
 	$bestelServ = new BestelService();

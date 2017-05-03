@@ -9,19 +9,19 @@ require_once ("bootstrap.php");
 require_once ("Business/KlantService.php");
 require_once ("Business/ProductService.php");
 require_once ("Business/BestelService.php");
+require_once ("login.php");
 
-session_start();
 
 if (isset($_GET["error"])){
 	$twigarray["error"] = $_GET["error"];
 }
 
 
-if (isset($_SESSION["klant"])) {
-	$klantServ = new KlantService();
-	$beheerder = $klantServ->isBeheerder(unserialize($_SESSION["klant"]));
-	$twigarray["klant"]=unserialize($_SESSION["klant"]);
-}
+//if (isset($_SESSION["klant"])) {
+//	$klantServ = new KlantService();
+//	$beheerder = $klantServ->isBeheerder(unserialize($_SESSION["klant"]));
+//	$twigarray["klant"]=unserialize($_SESSION["klant"]);
+//}
 if(isset($beheerder)&&$beheerder){
 	if (isset($_GET["p"])) {
 
