@@ -29,8 +29,8 @@ if(isset($beheerder)&&$beheerder){
 		if ($_GET["p"] == "b") {
 			$bestelServ = new BestelService();
 			$twigarray["bestellingen"] = $bestelServ->getAll();
-			$twigarray["vandaag"] = new DateTime("now");
-
+			$vandaag = new DateTime("now");
+			$twigarray["vandaag"] = $vandaag->format("Y-m-d");
 			$view = $twig->render('beheerder/bestellingen.twig',$twigarray);
 		}
 		//Welke product pagina renderen
