@@ -19,6 +19,7 @@ class ProductService
 
 	public function getById($id)
 	{
+
 		$productDAO = new ProductDAO();
 		$product = $productDAO->getById($id);
 		return $product;

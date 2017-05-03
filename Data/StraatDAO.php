@@ -93,4 +93,6 @@ class StraatDAO
 		$stmt->execute(array(':straat'=>$straat->getStraat(),':huisnummer'=>$straat->getHuisnummer(),':id'=>$straat->getId()));
 		$dbh = DBConfig::sluitConnectie();
 	}
+
+
 }

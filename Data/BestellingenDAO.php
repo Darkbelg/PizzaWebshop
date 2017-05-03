@@ -10,33 +10,57 @@ require_once "DBConfig.php";
 require_once "Entities/Bestellingen.php";
 require_once "Entities/Bestellijn.php";
 require_once "Entities/Product.php";
+require_once "StraatDAO.php";
+require_once "StadDAO.php";
+require_once "ProductDAO.php";
 
 class BestellingenDAO
 {
 	public function getAllOrders()
 	{
+		//TODO alle orders weergeven.
+		//Wat moet er in zo een order zitten ?
 		$dbh = DBConfig::openConnectie();
 		$sql = "select * from bestellingen";
+		/*
+		 * Omvat alles in één sql statement
+		 * $sql = "select * from bestellingen INNER JOIN klant on bestellingen.klantNummer=klant.klantNummer INNER JOIN stad on stad.id = bestellingen.plaatsId INNER JOIN straat on straat.id = bestellingen.straatId";
+		 */
 		$resultSet = $dbh->query($sql);
 		$lijst = array();
 		foreach ($resultSet as $rij) {
-			$bestelling = $this->getOrdersById($rij["bestellingId"]);
-			$bestellingen = Bestellingen::create($rij["bestellingId"],$rij["datum"],$rij["tijdstip"],$rij["info"]);
+			$stadDao = new StadDAO();
+			$stad = $stadDao->getById($rij["plaatsId"]);
+
+			$straat = StraatDAO::getById($rij["straatId"]);
+			$klantDao = new KlantDAO();
+			$klant = $klantDao->getById($rij["klantNummer"]);
+			$bestellijnen = $this->getBestellijnen($rij["id"]);
+
+			$bestellingen = Bestellingen::create($rij["id"],$rij["datum"],$rij["tijdstip"],$rij["info"],$klant,$straat,$stad,$bestellijnen);
+			array_push($lijst,$bestellingen);
 			//$order=Bestellingen::create();
 		}
+		$dbh = DBConfig::sluitConnectie();
+		return $lijst;
 
 	}
-	private function  getOrdersById($id){
+
+	/**
+	 * @param $id
+	 * @return array
+	 */
+	public function  getOrdersById($id){
 		$dbh = DBConfig::openConnectie();
-		$sql = "select * from bestelling WHERE bestellingId = :id";
+		$sql = "select * from bestellingen WHERE id = :id";
 		$stmt=$dbh->prepare($sql);
 		$stmt->execute(array(':id'=>$id));
 		$lijst = array();
 		foreach ($stmt as $rij){
-			$ingredienten = $this->getOrdersExtraPizzaId($rij["orderId"]);
+			//$ingredienten = $this->getOrdersExtraPizzaId($rij["orderId"]);
 			$pizzaDAO = new ProductDAO();
-			$pizza = $pizzaDAO->getPizzaById($rij["pizzaId"]);
-			$bestelling = Bestellijn::create($rij["orderId"], $rij["bestellingId"], $rij["aantal"], $pizza);
+			$pizza = $pizzaDAO->getById($rij["pizzaId"]);
+			$bestelling = Bestellijn::create($rij["id"], $rij["bestellingId"], $rij["aantal"], $pizza);
 			array_push($lijst,$bestelling);
 		}
 		$dbh = DBConfig::sluitConnectie();
@@ -51,10 +75,11 @@ class BestellingenDAO
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute(array(':order'=>$orderId));
 		$lijst = array();
-		foreach ($stmt as $rij){
-			$ingredient = Ingredient::create($rij["ingredientenId"],$rij["naam"],$rij["voedingswaarden"],$rij["kostprijs"],$rij["extra"] );
-			array_push($lijst,$ingredient);
+		foreach ($stmt as $rij) {
+			$ingredient = Ingredient::create($rij["ingredientenId"], $rij["naam"], $rij["voedingswaarden"], $rij["kostprijs"], $rij["extra"]);
+			array_push($lijst, $ingredient);
 		}
+		$dbh = DBConfig::sluitConnectie();
 		return $lijst;
 
 	}
@@ -81,6 +106,7 @@ class BestellingenDAO
 
 		$dbh = DBConfig::sluitConnectie();
 		$bestelling = $this->getById($id);
+		$dbh = DBConfig::sluitConnectie();
 		return $bestelling;
 
 	}
@@ -109,5 +135,20 @@ class BestellingenDAO
 		$rij = $stmt->fetch(PDO::FETCH_ASSOC);
 		$dbh = DBConfig::sluitConnectie();
 		return $rij;
+	}
+
+	public function getBestellijnen($bestellingId)
+	{
+		$dbh = DBConfig::openConnectie();
+		$sql = "select *,bestellijn.id as lid from bestellingen INNER JOIN bestellijn on bestellingen.id = bestellijn.bestellingId where bestellingId =:bestellingId";
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute(array(":bestellingId"=> $bestellingId));
+		$lijst = array();
+		foreach ($stmt as $rij){
+			$bestellijn = Bestellijn::create($rij["lid"],$rij["bestellingId"],$rij["aantal"],$rij["productId"]);
+			array_push($lijst,$bestellijn);
+		}
+		$dbh = DBConfig::sluitConnectie();
+		return $lijst;
 	}
 }
