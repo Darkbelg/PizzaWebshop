@@ -10,36 +10,40 @@
 require_once("bootstrap.php");
 require_once ("Business/ProductService.php");
 require_once ("Business/KlantService.php");
-session_start();
+require_once ("login.php");
 
-if (isset($_SESSION["klant"]) && isset($_SESSION["winkelmandje"])) {
-	$klantNummer = unserialize($_SESSION["klant"]);
-	$sWinMand = unserialize($_SESSION["winkelmandje"]);
+if ($klant) {
+	if(isset($_SESSION["winkelmandje"])) {
+		$klantNummer = unserialize($_SESSION["klant"]);
+		$sWinMand = unserialize($_SESSION["winkelmandje"]);
 
-	$twigArray = array();
-	$productSvc = new ProductService();
-	foreach ($sWinMand as $product){
-		$idP = $product["product"];
-		$product["product"] = $productSvc->getById($idP);
-		$sWinMand[$product["product"]->getId()] = $product;
+		$twigArray = array();
+		$productSvc = new ProductService();
+		foreach ($sWinMand as $product) {
+			$idP = $product["product"];
+			$product["product"] = $productSvc->getById($idP);
+			$sWinMand[$product["product"]->getId()] = $product;
 
+		}
+		$twigArray["winkelmandje"] = $sWinMand;
+		$klantServ = new KlantService();
+		$klant = $klantServ->getById($klantNummer);
+		try {
+			$klantServ->controleerRegio($klant->getStad()->getStad());
+		} catch (BuitenLevergebiedException $ex) {
+			$twigArray["error"] = "Wij leveren niet in deze stad.";
+			$twigArray["leverStad"] = $klantServ->toonLeverGebied();
+		}
+		$steden = $klantServ->toonLeverGebied();
+		$twigArray["steden"] = $steden;
+		$twigArray["klant"] = $klant;
+
+		$view = $twig->render("afrekenen.twig", $twigArray);
 	}
-	$twigArray["winkelmandje"] = $sWinMand;
-	$klantServ = new KlantService();
-	$klant = $klantServ->getById($klantNummer);
-	try{
-		$klantServ->controleerRegio($klant->getStad()->getStad());
-	}catch (BuitenLevergebiedException $ex){
-		$twigArray["error"] = "Wij leveren niet in deze stad.";
-		$twigArray["leverStad"] = $klantServ->toonLeverGebied();
+	else{
+		Doorverwijzen::doorverwijzen("toonallepizzas.php");
 	}
-	$steden = $klantServ->toonLeverGebied();
-	$twigArray["steden"]=$steden;
-	$twigArray["klant"]= $klant;
-
-	$view = $twig->render("afrekenen.twig", $twigArray);
-
 } else {
-	Doorverwijzen::doorverwijzen("aanmelden.php");
+	Doorverwijzen::doorverwijzen("aanmeldkeuze.php");
 }
 print ($view);

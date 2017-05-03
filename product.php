@@ -7,11 +7,11 @@
  */
 require_once("bootstrap.php");
 require_once("Business/ProductService.php");
+require_once ("login.php");
 
 
 if (isset($_GET["action"])) {
 	$productServ = new ProductService();
-	$twigarray = array();
 
 	if ($_GET["action"] == "toevoegen") {
 
@@ -25,7 +25,7 @@ if (isset($_GET["action"])) {
 
 			//$productServ->voegNieuweExtraToe();
 		}
-		print_r($_POST);
+		//print_r($_POST);
 		if (isset($_POST["extra"])) {
 			if ($_POST["extra"] == "ja") {
 				try {
@@ -54,7 +54,7 @@ if (isset($_GET["action"])) {
 		}
 		$product = $productServ->getById($_GET["id"]);
 		$twigarray["product"] = $product;
-		print_r($product);
+		//print_r($product);
 		$view = $twig->render('beheerder/productwijzigen.twig',$twigarray);
 		print $view;
 	}
