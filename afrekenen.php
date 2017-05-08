@@ -6,7 +6,9 @@
  * Time: 11:10
  */
 
-
+//TODO promotie
+	// TODO ingredienten
+// TODO seizoensgebonden producten
 require_once("bootstrap.php");
 require_once ("Business/ProductService.php");
 require_once ("Business/KlantService.php");
@@ -34,6 +36,9 @@ if ($klant) {
 			$twigArray["error"] = "Wij leveren niet in deze stad.";
 			$twigArray["leverStad"] = $klantServ->toonLeverGebied();
 		}
+
+
+
 		$steden = $klantServ->toonLeverGebied();
 		$twigArray["steden"] = $steden;
 		$twigArray["klant"] = $klant;
