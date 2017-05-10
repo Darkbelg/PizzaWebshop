@@ -10,6 +10,7 @@ require_once("Data/KlantDAO.php");
 require_once("Data/StadDao.php");
 require_once("Exceptions/BestaatException.php");
 require_once("Exceptions/BuitenLevergebiedException.php");
+require_once ("Data/ZaakDAO.php");
 
 class KlantService
 {
@@ -81,7 +82,11 @@ class KlantService
 
 	}
 
-	public function aanmerkingPromo($klantNummer)
+	public function getInPromoPeriode()
 	{
+		$zaakDao = new ZaakDAO();
+		$vandaag = new DateTime("now");
+		$bool = $zaakDao->getPromo($vandaag->format("Y-m-d"));
+		return $bool;
 	}
 }

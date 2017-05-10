@@ -20,4 +20,9 @@ class ZaakDAO
 		$dbh=DBConfig::sluitConnectie();
 		return $zaak;
 	}
+
+	public function getPromo($format)
+	{
+		$sql = "SELECT CASE WHEN(SELECT naam FROM zaak WHERE \"2017-05-10\" >= beginPromoDatum )THEN \"true\" ELSE \"false\" END";
+	}
 }

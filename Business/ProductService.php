@@ -20,8 +20,8 @@ class ProductService
 	public function  getAllByToday()
 	{
 		$productDao = new ProductDAO();
-		$today = new DateTime("now");
-		$producten = $productDao->getAllByDate($today->format("Y-m-d"));
+		$vandaag = new DateTime("now");
+		$producten = $productDao->getAllByDate($vandaag->format("Y-m-d"));
 		return $producten;
 	}
 	public function getById($id)
