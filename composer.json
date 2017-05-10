@@ -1,6 +1,13 @@
 {
-  "require" : {
-    "php":"~7.1.0",
-    "twig/twig": "^1.8"
-  }
+    "name": "stijn/pizza",
+    "description": "Een website voor pizzas",
+    "require": {
+        "twig/twig": "~1.0"
+    },
+    "authors": [
+        {
+            "name": "Stijn Sagaert",
+            "email": "stijn.sagaert@outlook.com"
+        }
+    ]
 }
