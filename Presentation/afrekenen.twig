@@ -60,6 +60,9 @@
         {% endif %}
         <form action="bestelling.php?action=toevoegen" method="post">
             <div class="form-group">
+                <label for="info">Info<textarea name="info" id="info" class="form-control"cols="50" placeholder="Opmerkingen voor bij het leveren."></textarea></label>
+            </div>
+            <div class="form-group">
                 <label for="straat">Straat</label><input class="form-control" id="straat" name="straat" type="text" required
                                                          value="{% if not error %}{{ klant.straat.straat }}{% endif %}">
             </div>

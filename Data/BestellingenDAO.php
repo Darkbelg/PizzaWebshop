@@ -114,12 +114,12 @@
 		 * @param $straat
 		 * @param $stad
 		 */
-		public function create($datum, $tijdstip, $klantNummer, $straat, $stad)
+		public function create($datum, $tijdstip, $klantNummer, $straat, $stad,$info)
 		{
 			$dbh = DBConfig::openConnectie();
-			$sql = "INSERT into bestellingen(datum,tijdstip,klantNummer,straatId,plaatsId)VALUES(:datum,:tijdstip,:klantNummer,:straatId,:plaatsId)";
+			$sql = "INSERT into bestellingen(datum,tijdstip,klantNummer,straatId,plaatsId,info)VALUES(:datum,:tijdstip,:klantNummer,:straatId,:plaatsId,:info)";
 			$stmt = $dbh->prepare($sql);
-			$stmt->execute(array(":datum" => $datum, ":tijdstip" => $tijdstip, ":klantNummer" => $klantNummer, ":straatId" => $straat, "plaatsId" => $stad));
+			$stmt->execute(array(":datum" => $datum, ":tijdstip" => $tijdstip, ":klantNummer" => $klantNummer, ":straatId" => $straat, "plaatsId" => $stad,":info"=>$info));
 			$id = $dbh->lastInsertId();
 			$bestelling = $this->getById($id);
 			$dbh = DBConfig::sluitConnectie();
