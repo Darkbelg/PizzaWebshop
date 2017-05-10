@@ -1,5 +1,4 @@
 <?php
-// TODO CRUD
 /**
  * Created by PhpStorm.
  * User: cyber09
@@ -12,19 +11,19 @@ require_once ("Exceptions/BestaatException.php");
 
 class StadDAO
 {
-	public function getStadById($id)
+	public function getById($id)
 	{
 		$dbh= DBConfig::openConnectie();
-		$sql = "select * from plaats WHERE plaatsId =:id";
+		$sql = "select * from stad WHERE id =:id";
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute(array(':id'=>$id));
 		$rij = $stmt->fetch(PDO::FETCH_ASSOC);
-		$stad = Stad::create($rij["plaatsId"],$rij["postcode"],$rij["stad"]);
+		$stad = Stad::create($rij["id"],$rij["postcode"],$rij["stad"]);
 		$dbh=DBConfig::sluitConnectie();
 		return $stad;
 	}
 
-	public function getAlleSteden()
+	public function getAll()
 	{
 		$dbh = DBConfig::openConnectie();
 		$sql = "select * from stad";
@@ -37,7 +36,7 @@ class StadDAO
 		return $lijst;
 	}
 
-	public function getByStad($naam)
+	public function getByNaam($naam)
 	{
 		$dbh = DBConfig::openConnectie();
 		$sql = "select * from stad where stad=:stad";
@@ -57,7 +56,7 @@ class StadDAO
 
 	public function create($stad,$postcode)
 	{
-		$bestaatStad = $this->getByStad($stad);
+		$bestaatStad = $this->getByNaam($stad);
 		if(!is_null($bestaatStad)){
 			throw new BestaatException();
 		}
@@ -67,7 +66,7 @@ class StadDAO
 		$stmt->execute(array(":stad"=>$stad,":postcode"=>$postcode));
 		$id =$dbh->lastInsertId();
 		$dbh = DBConfig::sluitConnectie();
-		$stad = $this->getStadById($id);
+		$stad = $this->getById($id);
 
 		return $stad;
 	}
@@ -82,7 +81,7 @@ class StadDAO
 
 	public function update($stad)
 	{
-		$bestaatStad = $this->getByStad($stad->getStad());
+		$bestaatStad = $this->getByNaam($stad->getStad());
 		if(!is_null($bestaatStad)&&($bestaatStad->getId()!=$stad->getId())){
 			throw new BestaatException();
 		}

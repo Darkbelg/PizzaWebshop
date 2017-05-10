@@ -14,7 +14,7 @@ class AanmeldenService
 	public function aanmelden($email, $wachtwoord)
 	{
 		$klantDao = new KlantDAO();
-		$klant = $klantDao->getAccountByEmail($email);
+		$klant = $klantDao->getByEmail($email);
 		if (isset($klant) && password_verify($wachtwoord,$klant->getWachtwoord())){
 			return $klant;
 		}else{

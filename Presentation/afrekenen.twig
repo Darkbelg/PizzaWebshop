@@ -17,17 +17,27 @@
             {% for pizza in winkelmandje %}
                 <tr>
                     <td>{{ pizza.product.naam }}</td>
-                    <td>&euro; {{ pizza.product.prijs }} </td>
+
+                    <td>&euro;
+                        {% if promo =="1" %}
+                        {{ (pizza.product.prijs* (1-pizza.product.promoKorting))|number_format }}
+                        {% else %}
+                            {{ pizza.product.prijs|number_format }}
+                            {% endif %}
+                            </td>
                     <td>{{ pizza.product.omschrijving }} </td>
                     <td>{{ pizza.aantal }}</td>
-                </tr>
-                {% set som = som + (pizza.product.prijs*pizza.aantal) %}
+                </tr> {% if promo =="1" %}
+                {% set som = som + ((pizza.product.prijs*(1-pizza.product.promoKorting))*pizza.aantal) %}
+            {% else %}
+                {% set som = som + (pizza.product.prijs*pizza.aantal)%}
+                {% endif %}
             {% endfor %}
             </tbody>
             <tfoot>
             <tr>
                 <td>Totaalprijs:</td>
-                <td>&euro; {{ som }}
+                <td>&euro; {{ som|number_format}}
 
                 </td>
                 <td><a href="toonAllePizzas.php">Wijzig winkelmandje</a></td>
@@ -37,12 +47,21 @@
         </table>
 
         {% if error %}
-            <div class="container">
-            <p class="alert alert-danger">
-            {{ error }}</p>
+            <div class="panel panel-danger">
+            <div class="panel-heading">
+            <strong>{{ error }}</strong> Wel in de volgende steden:</div>
+            <div class="panel-body">
+           {% for stad in leverStad %}
+            {{ stad.stad }}<br />
+           {% endfor %}
             </div>
+            </div>
+
         {% endif %}
         <form action="bestelling.php?action=toevoegen" method="post">
+            <div class="form-group">
+                <label for="info">Info<textarea name="info" id="info" class="form-control"cols="50" placeholder="Opmerkingen voor bij het leveren."></textarea></label>
+            </div>
             <div class="form-group">
                 <label for="straat">Straat</label><input class="form-control" id="straat" name="straat" type="text" required
                                                          value="{% if not error %}{{ klant.straat.straat }}{% endif %}">

@@ -12,7 +12,7 @@ require_once "Exceptions/StraatBestaatException.php";
 
 class StraatDAO
 {
-	public static function getStraatById($id)
+	public static function getById($id)
 	{
 		$dbh= DBConfig::openConnectie();
 		$sql = "select * from straat WHERE id =:id";
@@ -24,7 +24,7 @@ class StraatDAO
 		return $straat;
 	}
 
-	public function getAlleStraten()
+	public function getAll()
 	{
 		$dbh = DBConfig::openConnectie();
 		$sql = "select * from straat";
@@ -68,7 +68,7 @@ class StraatDAO
 
 		$id = $dbh->lastInsertId();
 		$dbh = DBConfig::sluitConnectie();
-		$straat = $this->getStraatById($id);
+		$straat = $this->getById($id);
 
 		return $straat;
 	}
@@ -93,4 +93,6 @@ class StraatDAO
 		$stmt->execute(array(':straat'=>$straat->getStraat(),':huisnummer'=>$straat->getHuisnummer(),':id'=>$straat->getId()));
 		$dbh = DBConfig::sluitConnectie();
 	}
+
+
 }

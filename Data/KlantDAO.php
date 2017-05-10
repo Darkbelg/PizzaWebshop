@@ -1,6 +1,4 @@
 <?php
-// TODO CRUD
-//TODO aanpassen alle klanten
 
 /**
  * Created by PhpStorm.
@@ -19,7 +17,7 @@ require_once "Exceptions/BestaatException.php";
 
 class KlantDAO
 {
-    public function getKlanten()
+    public function getAll()
     {
         $dbh = DBConfig::openConnectie();
         $sql = "SELECT klantNummer,naam,voornaam,telefoon, emailadres as email,wachtwoord,opmerking,promo,beheerder,
@@ -40,7 +38,7 @@ INNER JOIN straat on straat.id = klant.straatId";
 
     }
 
-    public function getAccountByEmail($email)
+    public function getByEmail($email)
     {
         $dbh = DBConfig::openConnectie();
         $sql = "SELECT klantNummer,naam,voornaam,telefoon, emailadres as email,wachtwoord,opmerking,promo,beheerder,
@@ -58,7 +56,7 @@ where emailadres = :email";
         return $klant;
     }
 
-    public function getAccountById($klantNummer)
+    public function getById($klantNummer)
     {
         $dbh = DBConfig::openConnectie();
         $sql = "SELECT klantNummer,naam,voornaam,telefoon, emailadres as email,wachtwoord,opmerking,promo,beheerder,
@@ -95,7 +93,7 @@ where klantNummer = :klantNummer";
 
         if ($bestaatKlant) {
 
-            return $klant = $this->getAccountById($bestaatKlant);
+            return $klant = $this->getById($bestaatKlant);
         }
 
         $stadDao = new StadDAO();
@@ -104,7 +102,7 @@ where klantNummer = :klantNummer";
         try {
             $stad = $stadDao->create($stad, $postcode);
         } catch (BestaatException $ex) {
-            $stad = $stadDao->getByStad($stad);
+            $stad = $stadDao->getByNaam($stad);
         }
         try {
             $straat = $straatDao->create($straat, $huisnummer);
@@ -119,16 +117,17 @@ where klantNummer = :klantNummer";
 
         $id = $dbh->lastInsertId();
         $dbh = DBConfig::sluitConnectie();
-        $klant = $this->getAccountById($id);
+        $klant = $this->getById($id);
 
         return $klant;
     }
 
-    /**
-     * @param $naam
-     * @param $voornaam
-     * @param $telefoon
-     */
+	/**
+	 * @param $naam
+	 * @param $voornaam
+	 * @param $telefoon
+	 * @return klantnummer
+	 */
     private function bestaatKlant($naam, $voornaam, $telefoon)
     {
         $dbh = DBConfig::openConnectie();
@@ -149,10 +148,31 @@ where klantNummer = :klantNummer";
         $stmt->execute(array(":email" => $email, ":wachtwoord" => $wachtHash, ":klantNummer" => $klantNummer));
 
         $dbh = DBConfig::sluitConnectie();
-        $klant = $this->getAccountById($klantNummer);
+        $klant = $this->getById($klantNummer);
         return $klant;
     }
 
+	public function updateOpmerking($klantnummer,$opmerking)
+	{
+		$dbh = DBConfig::openConnectie();
+		$sql = "update klant set opmerking=:opmerking where klantnummer=:klantnummer";
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute(array(":opmerking"=>$opmerking,":klantnummer"=>$klantnummer));
+		$dbh = DBConfig::sluitConnectie();
+	}
+
+	/**
+	 * Kijkt of de klant in aanmerking komt voor een promotie. Zo ja zal deze in de klant database op true gezet worden.
+	 * @param $klantNummer verplicht
+	 */
+	public function setAanmerkingPromo($klantNummer)
+	{
+		$dbh = DBConfig::openConnectie();
+		$sql = "UPDATE klant as k set k.promo = '1' WHERE (SELECT COUNT(b.klantNummer) FROM bestellingen as b where b.klantNummer = :klantNummer) >= (SELECT z.promoAantalBestellingen FROM zaak as z) AND k.klantNummer = :klantNummer";
+		$stmt = $dbh->prepare($sql);
+		$bool = $stmt->execute(array(":klantNummer"=>$klantNummer));
+		$dbh = DBConfig::sluitConnectie();
+	}
 
 
 }

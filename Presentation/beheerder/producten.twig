@@ -1,0 +1,87 @@
+{% extends "beheerder/navigatie.twig" %}
+{% block producten %}  class="active" {% endblock %}
+{% block content %}
+
+    {% if bestelling %}
+        <div class="alert alert-success">
+            {{ bestelling }}
+        </div>
+    {% endif %}
+    {% if error %}
+        <div class="panel panel-danger">
+
+            <div class="panel-heading">Er is iets fout gelopen</div>
+            <div class="panel-body">{{ error }}</div>
+
+        </div>
+    {% endif %}
+    <h2>Alle pizza's</h2>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Prijs</th>
+            <th>Omschrijving</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for pizza in producten %}
+            {% if pizza.extra == 0 %}
+                <tr>
+                    <td>{{ pizza.naam }}</td>
+                    <td>&euro;{{ pizza.prijs }} </td>
+                    <td>{{ pizza.omschrijving }} </td>
+                    <td>
+                    <a href="product.php?action=wijzigen&id={{ pizza.id }}">Wijzigen</a>
+                    </td>
+                    <td>
+                    <a href="product.php?action=verwijder&id={{ pizza.id }}"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr><td>
+        <a href="product.php?action=toevoegen&extra=nee"><span class="glyphicon glyphicon-plus-sign"></span></a>
+        </td></tr>
+        </tfoot>
+    </table>
+
+    <h2>Extra ingredienten</h2>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Prijs</th>
+            <th>Omschrijving</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for pizza in producten %}
+            {% if pizza.extra == 1 %}
+                <tr>
+                    <td>{{ pizza.naam }}</td>
+                    <td>&euro;{{ pizza.prijs }} </td>
+                    <td>{{ pizza.omschrijving }} </td>
+                    <td>
+                        <a href="product.php?action=wijzigen&id={{ pizza.id }}">Wijzigen</a>
+                    </td>
+                    <td>
+                        <a href="product.php?action=verwijder&id={{ pizza.id }}"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+<tfoot>
+<tr><td>
+<a href="product.php?action=toevoegen&extra=ja"><span class="glyphicon glyphicon-plus-sign"></span></a>
+</td></tr>
+
+</tfoot>
+
+    </table>
+{% endblock %}

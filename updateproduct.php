@@ -12,7 +12,7 @@ if(isset($_GET["action"])&& ($_GET["action"]=="process")){
 	try{
 		$productSvc = new ProductService();
 		$productSvc->update($_GET["id"], $_POST["txtNaam"], $_POST["txtPrijs"], $_POST["txtBeginDatum"], $_POST["txtEindDatum"], $_POST["txtPromoKorting"], $_POST["txtOmschrijving"]);
-		$product= $productSvc->haalProductOp($_GET["id"]);
+		$product= $productSvc->getById($_GET["id"]);
 		if($product->getExtra()==1) {
 			header("location:toonalleextras.php");
 			exit(0);
@@ -27,7 +27,7 @@ if(isset($_GET["action"])&& ($_GET["action"]=="process")){
 }else {
 
 	$productSvc = new ProductService();
-	$product = $productSvc->haalProductOp($_GET["id"]);
+	$product = $productSvc->getById($_GET["id"]);
 	$twigArray = array("product"=>$product);
 	if (isset($_GET["error"])) {
 		$error = $_GET["error"];
