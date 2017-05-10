@@ -16,5 +16,6 @@ if (isset($_SESSION["klant"])) {
 	$k = $klantServ->getById($klant);
 	$beheerder = $k->getBeheerder();
 	$promo = $k->getPromo();
+	$promo = $klantServ->getInPromoPeriode();
 	$twigarray["klant"]=$klant;
 }
