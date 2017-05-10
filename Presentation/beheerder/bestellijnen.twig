@@ -1,0 +1,47 @@
+{% extends "beheerder/navigatie.twig" %}
+{% block content %}
+
+    <div class="page-header">
+    <h1>Bestelling info</h1>
+    </div>
+    <div class="jumbotron">
+           <p> Naam: {{ bestelling.klant.voornaam }} {{ bestelling.klant.naam }}</p>
+        <p>Stad: {{ bestelling.plaats.stad }} {{ bestelling.plaats.postcode }} </p>
+    <p>Straat: {{ bestelling.straat.straat }} {{ bestelling.straat.huisnummer }} </p>
+        <p>Info:</p>
+        <h1>{{ bestelling.info }}</h1>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Aantal</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for bestellijn in bestellijnen %}
+
+            <tr>
+                <td>{{ bestellijn.pizzaId.naam }}</td>
+                <td> {{ bestellijn.aantal }} </td>
+                {#<td>{{ bestelling.datum }} {{ bestelling.tijdstip }}</td>#}
+                {#<td>{{ bestelling.info }}</td>#}
+                {#<td>{{ bestelling.plaats.stad }} {{ bestelling.plaats.postcode }}</td>#}
+                {#<td>{{ bestelling.straat.straat }} {{ bestelling.straat.huisNummer }}</td>#}
+                {#<td>{{ bestelling.klant.telefoon }}</td>#}
+                {#<td><a href="toonbestelling.php?id={{ bestelling.id }}">Toon bestelling</a></td>#}
+                {#<td>{{ klant.voornaam }}</td>#}
+                {#<td>{{ klant.telefoon }} </td>#}
+                {#<td>{{ klant.emailadres }} </td>#}
+                {#<td>{{ klant.opmerking }}  </td>#}
+                {#<td><a href="opmerking.php?id={{ klant.klantNummer }}">Opmerking wijzigen</a></td>#}
+                {#<td>{{ klant.stad.stad }} </td>#}
+                {#<td>{{ klant.stad.postcode }} </td>#}
+                {#<td>{{ klant.straat.straat }} {{ klant.straat.huisnummer }} </td>#}
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

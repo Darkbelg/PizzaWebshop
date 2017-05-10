@@ -9,21 +9,21 @@ require_once ("bootstrap.php");
 require_once "Business/KlantService.php";
 require_once "Exceptions/BuitenLevergebiedException.php";
 require_once "Business/BestelService.php";
-
-session_start();
+require_once "login.php";
 
 if (isset($_GET["action"])){
 	if ($_GET["action"] == "toevoegen"){
 		$stad = $_POST["stad"];
 		$straat = $_POST["straat"];
 		$huisnummer = $_POST["huisnummer"];
+		$info = $_POST["info"];
 
 		$klantServ = new KlantService();
 		$bestellingenServ = new BestelService();
 		$sWinMan = unserialize($_SESSION["winkelmandje"]);
-		$klantNummer = unserialize($_SESSION["klant"]);
-
-		$klant = $klantServ->getKlant($klantNummer);
+		$klantNummer = $klant;
+		$klant = $klantServ->getById($klantNummer);
+		$promoAanmerking =  $klantServ->setAanmerkingPromo($klantNummer);
 		try{
 			$klantServ->controleerRegio($stad);
 		}catch (BuitenLevergebiedException $ex){
@@ -32,7 +32,7 @@ if (isset($_GET["action"])){
 		$tijd = new DateTime($_POST["tijd"]);
 		$datum = date_format($tijd, "y-m-d");
 		$tijdstip =date_format($tijd, "H:i:s");
-		$bestelling = $bestellingenServ->nieuweBestelling($datum,$tijdstip,$klant->getKlantNummer(),$straat,$huisnummer,$stad,$sWinMan);
+		$bestelling = $bestellingenServ->nieuweBestelling($datum,$tijdstip,$klant->getKlantNummer(),$straat,$huisnummer,$stad,$sWinMan,$info);
 		Doorverwijzen::doorverwijzen("toonallepizzas.php?b=s");
 
 

@@ -1,14 +1,14 @@
-{% extends "base.twig" %}
-
+{% extends "beheerder/navigatie.twig" %}
+{% block klanten %}  class="active" {% endblock %}
 {% block content %}
-    <table class="table table-striped">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th>Naam</th>
             <th>Voornaam</th>
             <th>Telefoon</th>
             <th>E-mail</th>
-            <th>Opmerking</th>
+            <th colspan="2">Opmerking</th>
             <th>Stad</th>
             <th>Postcode</th>
             <th>Straat</th>
@@ -16,12 +16,20 @@
         </thead>
         <tbody>
         {% for klant in klanten %}
-            <tr>
+
+            <tr
+                    {% for stad in leverGebied %}
+                    {% if klant.stad.stad == stad.stad %}
+                    class="success"
+                        {% endif %}
+                    {% endfor %}
+                        >
                 <td>{{ klant.naam }}</td>
                 <td>{{ klant.voornaam }}</td>
                 <td>{{ klant.telefoon }} </td>
                 <td>{{ klant.emailadres }} </td>
-                <td>{{ klant.opmerking }} </td>
+                <td>{{ klant.opmerking }}  </td>
+                <td><a href="opmerking.php?id={{ klant.klantNummer }}">Opmerking wijzigen</a></td>
                 <td>{{ klant.stad.stad }} </td>
                 <td>{{ klant.stad.postcode }} </td>
                 <td>{{ klant.straat.straat }} {{ klant.straat.huisnummer }} </td>

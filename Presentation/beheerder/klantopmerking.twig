@@ -1,0 +1,26 @@
+{% extends "beheerder/navigatie.twig" %}
+{% block content %}
+
+    {% if error %}
+        <div class="panel panel-danger">
+
+            <div class="panel-heading">Er is iets fout gelopen</div>
+            <div class="panel-body">{{ error }}</div>
+
+        </div>
+    {% endif %}
+    <h2>Opmerking over {{ klant.voornaam }} {{ klant.naam }}</h2>
+    <form action="updateopmerking.php?id={{ klant.klantNummer }}" method="post">
+
+        <div class="form-group">
+            <label for="opmerking">Opmerking</label><textarea class="form-control" name="opmerking"
+                                                                 id="opmerking"> {{ klant.opmerking }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Wijzigen">
+
+            <a href="beheerder.php?p=k">Annuleren</a>
+        </div>
+    </form>
+{% endblock %}

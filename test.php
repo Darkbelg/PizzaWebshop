@@ -9,16 +9,15 @@ require_once "Business/KlantService.php";
 require_once "Exceptions/BestaatException.php";
 require_once "Data/BestellingenDAO.php";
 require_once "Business/BestelService.php";
+require_once "Data/ProductDAO.php";
+require_once "Business/ProductService.php";
 
-
+$productServ = new ProductService();
 
 try {
-	$bestellingenServ = new BestelService();
-	$winkelmandje = array(array("aantal"=>"1","productId"=>"1"),array("aantal"=>"2","productId"=>"4"));
-
-	$bestelling = $bestellingenServ->nieuweBestelling("2017-04-18","15:45:00","3","cornationStreet","36","Tielt",$winkelmandje);
-    print "<pre>";
-	print_r($bestelling);
+	$productServ->update("7","champignon","0.70","2017-5-2","2017-5-5","0.1","De lekkerste paddestoel die er is.","1");
+  print "<pre>";
+	print_r("Wijzigen extra");
 	print "</pre>";
 }catch (BestaatException $ex){
 	print("het bestaat al");

@@ -3,11 +3,12 @@
 
     <form action="registreren.php?action=process" method="post">
         <h2>Registreren</h2>
-        <div class="form-group">
-            <label for="naam">Naam</label><input type="text" id="naam" name="naam" class="form-control" required>
-        </div>
+
         <div class="form-group">
             <label for="voornaam">Voornaam</label><input type="text" id="voornaam" name="voornaam" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="naam">Naam</label><input type="text" id="naam" name="naam" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="straat">Straat</label><input type="text" id="straat" name="straat" class="form-control" required>
@@ -32,7 +33,7 @@
             </div>
         {% endif %}
         <div class="form-group">
-            <input type="submit" class="btn btn-default">
+            <input type="submit" class="btn btn-default" value="Registreren">
         </div>
     </form>
 {% endblock %}

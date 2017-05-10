@@ -1,5 +1,4 @@
 <?php
-// TODO CRUD
 /**
  * Created by PhpStorm.
  * User: cyber09
@@ -11,7 +10,7 @@ require_once "DBConfig.php";
 
 class ZaakDAO
 {
-	public function getZaak($naam){
+	public function getByNaam($naam){
 		$sql = "select * from zaak WHERE naam=:naam";
 		$dbh = DBConfig::openConnectie();
 		$stmt = $dbh->prepare($sql);
@@ -20,5 +19,10 @@ class ZaakDAO
 		$zaak = Zaak::create($rij["zaakId"],$rij["naam"],$rij["voorwaarden"],$rij["beginPromoDatum"],$rij["eindPromoDatum"],$rij["promoAantalBestellingen"]);
 		$dbh=DBConfig::sluitConnectie();
 		return $zaak;
+	}
+
+	public function getPromo($format)
+	{
+		$sql = "SELECT CASE WHEN(SELECT naam FROM zaak WHERE \"2017-05-10\" >= beginPromoDatum )THEN \"true\" ELSE \"false\" END";
 	}
 }

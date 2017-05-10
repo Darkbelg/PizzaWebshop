@@ -1,6 +1,14 @@
 {% extends "base.twig" %}
 {% block content %}
-    <form action="aanmelden.php?action=aanmelden" method="post">
+    {% if error %}
+        <div class="alert alert-danger">
+            <strong>{{ error }}</strong>
+        </div>
+
+
+    {% endif %}
+
+    <form action="aanmelden.php" method="post">
         <div class="form-group">
         <label for="email">E-mail adres</label>
         <input id="email" name="email" class="form-control" type="text" value="{{ email }}">

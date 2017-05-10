@@ -10,10 +10,10 @@ require_once "Data/ZaakDAO.php";
 
 class ZaakService
 {
-	public function getZaakByNaam($naam)
+	public function getByNaam($naam)
 	{
 		$zaakDAO = new ZaakDAO();
-		$zaak = $zaakDAO->getZaak($naam);
+		$zaak = $zaakDAO->getByNaam($naam);
 		return $zaak;
 }
 }

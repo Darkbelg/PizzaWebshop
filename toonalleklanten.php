@@ -9,6 +9,6 @@ require_once "Business/KlantService.php";
 require_once "bootstrap.php";
 
 $klantSvc =new KlantService();
-$klanten = $klantSvc->toonKlanten();
-$view = $twig->render("toonAlleKlanten.twig",array("klanten"=>$klanten));
+$klanten = $klantSvc->getAll();
+$view = $twig->render("beheerder/toonAlleKlanten.twig",array("klanten"=>$klanten));
 print $view;

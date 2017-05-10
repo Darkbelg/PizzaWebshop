@@ -1,0 +1,38 @@
+{% extends "beheerder/navigatie.twig" %}
+{% block bestellingen %}  class="active" {% endblock %}
+{% block content %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Lever datum</th>
+            <th>Info</th>
+            <th>Stad</th>
+            <th >Straat</th>
+            <th>Telefoon</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for bestelling in bestellingen %}
+
+            <tr
+            {% if vandaag <= bestelling.datum %}
+                class="success"
+                {% endif %}
+            >
+                <td> {{ bestelling.klant.voornaam }} {{ bestelling.klant.naam }} </td>
+                <td>{{ bestelling.datum }} {{ bestelling.tijdstip }}</td>
+                <td>{{ bestelling.info }}</td>
+                <td>{{ bestelling.plaats.stad }} {{ bestelling.plaats.postcode }}</td>
+                <td>{{ bestelling.straat.straat }} {{ bestelling.straat.huisNummer }}</td>
+                <td>{{ bestelling.klant.telefoon }}</td>
+                {% if bestelling.bestellijn[0].bestellingid %}
+                <td><a href="toonbestelling.php?id={{ bestelling.bestellijn[0].bestellingid }}">Toon bestelling</a></td>
+                {% endif %}
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

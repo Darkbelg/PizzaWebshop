@@ -1,0 +1,40 @@
+{% extends "beheerder/navigatie.twig" %}
+{% block content %}
+
+
+    <form action="product.php?action=toevoegen" method="post">
+        <div class="form-group">
+            <label for="naam">Naam</label><input class="form-control" name="naam" id="naam" type="text" required>
+        </div>
+        <div class="form-group">
+            <label for="prijs">Prijs</label><input class="form-control" name="prijs" id="prijs" type="text" required>
+        </div>
+        <div class="form-group">
+            <label for="beginDatum">Begin beschikbaarheid</label><input class="form-control" name="beginDatum"
+                                                                        id="beginDatum" type="date" required>
+        </div>
+        <div class="form-group">
+            <label for="eindDatum">Einde beschikbaarheid</label><input class="form-control" name="eindDatum"
+                                                                       id="eindDatum" type="date" required>
+        </div>
+        <div class="form-group">
+            <label for="promoKorting">Promotie korting </label><input class="form-control" name="promoKorting"
+                                                                      id="promoKorting" type="text" required>
+        </div>
+        <div class="form-group">
+            <label for="omschrijving">Omschrijving</label><textarea class="form-control" name="omschrijving"
+                                                                    id="omschrijving"></textarea>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" name="extra" value="ja"
+                        {% if extra == 1 %}
+                            checked
+                        {% endif %}
+                > Extra ingredient</label>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Toevoegen">
+            <a href="beheerder.php?p=p">Annuleren</a>
+        </div>
+    </form>
+{% endblock %}

@@ -10,33 +10,41 @@ require_once "Data/ProductDAO.php";
 
 class ProductService
 {
-	public function toonProducten()
+	public function getAll()
 	{
 		$productDAO = new ProductDAO();
-		$product = $productDAO->getAll();
+		$producten = $productDAO->getAll();
+		return $producten;
+	}
+
+	public function  getAllByToday()
+	{
+		$productDao = new ProductDAO();
+		$vandaag = new DateTime("now");
+		$producten = $productDao->getAllByDate($vandaag->format("Y-m-d"));
+		return $producten;
+	}
+	public function getById($id)
+	{
+
+		$productDAO = new ProductDAO();
+		$product = $productDAO->getById($id);
 		return $product;
 	}
 
-	public function haalProductOp($id)
-	{
-		$productDAO = new ProductDAO();
-		$product = $productDAO->getProductById($id);
-		return $product;
-	}
-
-	public function voegNieuwPizzaToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving)
+	public function voegNieuwPizzaToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving = "")
 	{
 		$pizzaDAO = new ProductDAO();
 		$pizzaDAO->create($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, 0);
 	}
 
-	public function voegNieuweExtraToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving)
+	public function voegNieuweExtraToe($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving = "")
 	{
 		$extraDAO = new ProductDAO();
 		$extraDAO->create($naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, 1);
 	}
 
-	public function verwijderProduct($id)
+	public function verwijder($id)
 	{
 		$productDAO = new ProductDAO();
 		$productDAO->delete($id);
@@ -45,7 +53,7 @@ class ProductService
 	public function update($id, $naam, $prijs, $beginDatum, $eindDatum, $promoKorting, $omschrijving, $extra)
 	{
 		$productDAO = new ProductDAO();
-		$product = $productDAO->getProductById($id);
+		$product = $productDAO->getById($id);
 		$product->setNaam($naam);
 		$product->setPrijs($prijs);
 		$product->setBeginDatum($beginDatum);
@@ -55,6 +63,4 @@ class ProductService
 		$product->setExtra($extra);
 		$productDAO->update($product);
 	}
-
-
 }
