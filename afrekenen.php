@@ -16,32 +16,35 @@ require_once ("login.php");
 
 if ($klant) {
 	if(isset($_SESSION["winkelmandje"])) {
-		$klantNummer = unserialize($_SESSION["klant"]);
+		$klantNummer =$klant;
 		$sWinMand = unserialize($_SESSION["winkelmandje"]);
 
-		$twigArray = array();
+
+
 		$productSvc = new ProductService();
+		$klantServ = new KlantService();
+
+
 		foreach ($sWinMand as $product) {
 			$idP = $product["product"];
 			$product["product"] = $productSvc->getById($idP);
 			$sWinMand[$product["product"]->getId()] = $product;
 
 		}
-		$twigArray["winkelmandje"] = $sWinMand;
-		$klantServ = new KlantService();
 		$klant = $klantServ->getById($klantNummer);
+		$twigArray["winkelmandje"] = $sWinMand;
 		try {
 			$klantServ->controleerRegio($klant->getStad()->getStad());
 		} catch (BuitenLevergebiedException $ex) {
 			$twigArray["error"] = "Wij leveren niet in deze stad.";
 			$twigArray["leverStad"] = $klantServ->toonLeverGebied();
 		}
-
-
-
 		$steden = $klantServ->toonLeverGebied();
 		$twigArray["steden"] = $steden;
 		$twigArray["klant"] = $klant;
+		if(isset($promo)){
+			$twigArray["promo"] = $promo;
+		}
 
 		$view = $twig->render("afrekenen.twig", $twigArray);
 	}

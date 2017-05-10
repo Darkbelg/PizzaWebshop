@@ -17,17 +17,27 @@
             {% for pizza in winkelmandje %}
                 <tr>
                     <td>{{ pizza.product.naam }}</td>
-                    <td>&euro; {{ pizza.product.prijs }} </td>
+
+                    <td>&euro;
+                        {% if promo =="1" %}
+                        {{ (pizza.product.prijs* (1-pizza.product.promoKorting))|number_format }}
+                        {% else %}
+                            {{ pizza.product.prijs|number_format }}
+                            {% endif %}
+                            </td>
                     <td>{{ pizza.product.omschrijving }} </td>
                     <td>{{ pizza.aantal }}</td>
-                </tr>
-                {% set som = som + (pizza.product.prijs*pizza.aantal) %}
+                </tr> {% if promo =="1" %}
+                {% set som = som + ((pizza.product.prijs*(1-pizza.product.promoKorting))*pizza.aantal) %}
+            {% else %}
+                {% set som = som + (pizza.product.prijs*pizza.aantal)%}
+                {% endif %}
             {% endfor %}
             </tbody>
             <tfoot>
             <tr>
                 <td>Totaalprijs:</td>
-                <td>&euro; {{ som }}
+                <td>&euro; {{ som|number_format}}
 
                 </td>
                 <td><a href="toonAllePizzas.php">Wijzig winkelmandje</a></td>

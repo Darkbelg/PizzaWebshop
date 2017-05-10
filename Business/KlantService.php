@@ -72,4 +72,16 @@ class KlantService
 		$klantDao->updateOpmerking($klantnummer,$opmerking);
 
 	}
+
+	public function setAanmerkingPromo($klantNummer)
+	{
+		//opvragen hoeveel keer hij besteld heeft
+		$klantDao = new KlantDAO();
+		$klantDao->setAanmerkingPromo($klantNummer);
+
+	}
+
+	public function aanmerkingPromo($klantNummer)
+	{
+	}
 }
