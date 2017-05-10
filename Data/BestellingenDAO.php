@@ -121,10 +121,10 @@
 			$stmt = $dbh->prepare($sql);
 			$stmt->execute(array(":datum" => $datum, ":tijdstip" => $tijdstip, ":klantNummer" => $klantNummer, ":straatId" => $straat, "plaatsId" => $stad));
 			$id = $dbh->lastInsertId();
-
-			$dbh = DBConfig::sluitConnectie();
 			$bestelling = $this->getById($id);
 			$dbh = DBConfig::sluitConnectie();
+			$klantDao = new KlantDAO();
+			$klantDao->setAanmerkingPromo($klantNummer);
 			return $bestelling;
 
 		}

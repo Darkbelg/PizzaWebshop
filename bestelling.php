@@ -9,8 +9,7 @@ require_once ("bootstrap.php");
 require_once "Business/KlantService.php";
 require_once "Exceptions/BuitenLevergebiedException.php";
 require_once "Business/BestelService.php";
-
-session_start();
+require_once "login.php";
 
 if (isset($_GET["action"])){
 	if ($_GET["action"] == "toevoegen"){
@@ -21,9 +20,9 @@ if (isset($_GET["action"])){
 		$klantServ = new KlantService();
 		$bestellingenServ = new BestelService();
 		$sWinMan = unserialize($_SESSION["winkelmandje"]);
-		$klantNummer = unserialize($_SESSION["klant"]);
-
+		$klantNummer = $klant;
 		$klant = $klantServ->getById($klantNummer);
+		$promoAanmerking =  $klantServ->setAanmerkingPromo($klantNummer);
 		try{
 			$klantServ->controleerRegio($stad);
 		}catch (BuitenLevergebiedException $ex){

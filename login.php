@@ -12,7 +12,9 @@ session_start();
 //altijd als laatste require_once omdat deze de session_start().
 if (isset($_SESSION["klant"])) {
 	$klantServ = new KlantService();
-	$beheerder = $klantServ->isBeheerder(unserialize($_SESSION["klant"]));
 	$klant = unserialize($_SESSION["klant"]);
+	$k = $klantServ->getById($klant);
+	$beheerder = $k->getBeheerder();
+	$promo = $k->getPromo();
 	$twigarray["klant"]=$klant;
 }

@@ -161,4 +161,18 @@ where klantNummer = :klantNummer";
 		$dbh = DBConfig::sluitConnectie();
 	}
 
+	/**
+	 * Kijkt of de klant in aanmerking komt voor een promotie. Zo ja zal deze in de klant database op true gezet worden.
+	 * @param $klantNummer verplicht
+	 */
+	public function setAanmerkingPromo($klantNummer)
+	{
+		$dbh = DBConfig::openConnectie();
+		$sql = "UPDATE klant as k set k.promo = '1' WHERE (SELECT COUNT(b.klantNummer) FROM bestellingen as b where b.klantNummer = :klantNummer) >= (SELECT z.promoAantalBestellingen FROM zaak as z) AND k.klantNummer = :klantNummer";
+		$stmt = $dbh->prepare($sql);
+		$bool = $stmt->execute(array(":klantNummer"=>$klantNummer));
+		$dbh = DBConfig::sluitConnectie();
+	}
+
+
 }

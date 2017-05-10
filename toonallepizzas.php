@@ -8,10 +8,8 @@
 
 require_once "Business/ProductService.php";
 require_once "bootstrap.php";
+require_once "login.php";
 
-session_start();
-
-$twigarray = array();
 $productenSvc = new ProductService();
 $producten = $productenSvc->getAll();
 $twigarray["producten"]=$producten;
@@ -30,11 +28,10 @@ if (isset($_SESSION["winkelmandje"])){
 	}
 	$twigarray["winkelmandje"] = $winkelmandje;
 }
-if (isset($_SESSION["klant"])){
-	$klantNummer = unserialize($_SESSION["klant"]);
-	$twigarray["klant"] = $klantNummer;
-}
 
+if (isset($promo)){
+	$twigarray["promo"] = 1;
+}
 
 $view = $twig->render("toonAllePizzas.twig",$twigarray);
 print $view;

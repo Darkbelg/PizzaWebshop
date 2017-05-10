@@ -22,7 +22,12 @@
             {% if pizza.extra == 0 %}
                 <tr>
                     <td>{{ pizza.naam }}</td>
-                    <td>&euro;{{ pizza.prijs }} </td>
+                    <td>{% if promo %}
+                        &euro;{{ (pizza.prijs * (1 - pizza.promoKorting))|number_format }}
+                    {% else %}
+                        &euro;{{ pizza.prijs }}
+                        {% endif %}
+                    </td>
                     <td>{{ pizza.omschrijving }} </td>
                     {#<td>#}
                     {#<a href="updateProduct.php?id={{ pizza.id }}">Wijzigen</a>#}
@@ -58,7 +63,13 @@
             {% for pizza in winkelmandje %}
                 <tr>
                     <td>{{ pizza.product.naam }}</td>
-                    <td>&euro;{{ pizza.product.prijs }} </td>
+                    <td>
+                        {% if promo == "1" %}
+                            &euro;{{ (pizza.product.prijs * (1 - pizza.product.promoKorting))|number_format }}
+                        {% else %}
+                            &euro;{{ pizza.product.prijs }}
+                        {% endif %}
+                     </td>
                     <td>{{ pizza.product.omschrijving }} </td>
                     <td>{{ pizza.aantal }}</td>
                     <td><a href="winkelmandje.php?action=verwijder&id={{ pizza.product.id }}"><span
