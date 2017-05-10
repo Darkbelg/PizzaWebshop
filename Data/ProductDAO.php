@@ -25,6 +25,21 @@ class ProductDAO
 		$dbh=DBConfig::sluitConnectie();
 		return $lijst;
 }
+	public function getAllByDate($vandaag)
+	{
+		$dbh = DBConfig::openConnectie();
+		$sql = "SELECT * FROM product WHERE :vandaag >= beginDatum AND :vandaag <= eindDatum";
+		$stmt=$dbh->prepare($sql);
+		$stmt->execute(array(":vandaag"=>$vandaag));
+		$resultSet = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$lijst = array();
+		foreach ($resultSet as $rij){
+			$product= Product::create($rij["id"], $rij["naam"], $rij["prijs"], $rij["beginDatum"], $rij["eindDatum"], $rij["promoKorting"], $rij["omschrijving"],$rij["extra"]);
+			array_push($lijst,$product);
+		}
+		$dbh=DBConfig::sluitConnectie();
+		return $lijst;
+}
 
 
 	public function getById($id){

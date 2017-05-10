@@ -11,7 +11,7 @@ require_once "bootstrap.php";
 require_once "login.php";
 
 $productenSvc = new ProductService();
-$producten = $productenSvc->getAll();
+$producten = $productenSvc->getAllByToday();
 $twigarray["producten"]=$producten;
 
 if(isset($_GET["b"])&& $_GET["b"]=="s"){
