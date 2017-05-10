@@ -22,7 +22,7 @@
             "symfony/debug": "~2.7",
             "symfony/phpunit-bridge": "~3.3@dev"
         },
-        "time": "2017-03-22T15:40:09+00:00",
+        "time": "2017-03-22 15:40:09",
         "type": "library",
         "extra": {
             "branch-alias": {
