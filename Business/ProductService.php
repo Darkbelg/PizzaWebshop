@@ -13,10 +13,17 @@ class ProductService
 	public function getAll()
 	{
 		$productDAO = new ProductDAO();
-		$product = $productDAO->getAll();
-		return $product;
+		$producten = $productDAO->getAll();
+		return $producten;
 	}
 
+	public function  getAllByToday()
+	{
+		$productDao = new ProductDAO();
+		$today = new DateTime("now");
+		$producten = $productDao->getAllByDate($today->format("Y-m-d"));
+		return $producten;
+	}
 	public function getById($id)
 	{
 
