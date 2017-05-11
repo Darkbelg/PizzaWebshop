@@ -9,7 +9,7 @@
 	require_once "Data/StraatDAO.php";
 	require_once "Data/StadDAO.php";
 	require_once "Exceptions/StraatBestaatException.php";
-	require_once "Data/KlantDao.php";
+	require_once "Data/KlantDAO.php";
 
 
 	class BestelService
