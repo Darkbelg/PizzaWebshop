@@ -3,7 +3,7 @@
     "require": {
         "twbs/bootstrap": "^3.3",
         "php": "^7.1",
-        "twig/twig": "^2.3"
+        "twig/twig": "1.33.2"
     },
     "authors": [
         {
