@@ -2,7 +2,7 @@
     "name": "cyber09/pizza-opdracht",
     "require": {
         "php": "^7.1",
-        "twig/twig": "1.4"
+        "twig/twig": "1.33.2"
     },
     "authors": [
         {
