@@ -13,4 +13,4 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem("Presentation");
 $twig = new Twig_Environment($loader);
 //defaults de number__format naar 2 nummers achter de komma
-	$twig->getExtension('Twig_Extension_Core')->setNumberFormat(2,","," ");
+	//$twig->getExtension('Twig_Extension_Core')->setNumberFormat(2,","," ");
