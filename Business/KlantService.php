@@ -7,7 +7,7 @@
  * Time: 13:30
  */
 require_once("Data/KlantDAO.php");
-require_once("Data/StadDao.php");
+require_once("Data/StadDAO.php");
 require_once("Exceptions/BestaatException.php");
 require_once("Exceptions/BuitenLevergebiedException.php");
 require_once ("Data/ZaakDAO.php");
