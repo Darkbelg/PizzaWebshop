@@ -12,6 +12,7 @@
 	require_once "Data/KlantDAO.php";
 
 
+
 	class BestelService
 	{
 		public function nieuweBestelling($datum, $tijdstip, $klantNummer, $straat, $huisnummer, $stad, $bestellijnen, $info)
