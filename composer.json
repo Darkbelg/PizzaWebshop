@@ -1,12 +1,12 @@
 {
-    "name": "stijn/pizza",
-    "description": "Een website voor pizzas",
+    "name": "cyber09/pizza-opdracht",
     "require": {
-        "twig/twig": "~1.0"
+        "php": "^7.1",
+        "twig/twig": "1.4"
     },
     "authors": [
         {
-            "name": "Stijn Sagaert",
+            "name": "Darkbelg",
             "email": "stijn.sagaert@outlook.com"
         }
     ]
