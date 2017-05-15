@@ -21,8 +21,19 @@ class ZaakDAO
 		return $zaak;
 	}
 
-	public function getPromo($format)
+
+	public function getPromo($vandaag)
 	{
-		$sql = "SELECT CASE WHEN(SELECT naam FROM zaak WHERE \"2017-05-10\" >= beginPromoDatum )THEN \"true\" ELSE \"false\" END";
+//		$vandaag = '2017-05-15';
+		$dbh = DBConfig::openConnectie();
+		$sql = "SELECT naam FROM zaak WHERE :datum >= beginPromoDatum and :datum <= eindPromoDatum";
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute(array(':datum'=>$vandaag));
+		$rij = $stmt->fetch(PDO::FETCH_ASSOC);
+		if(isset($rij["naam"])){
+			$dbh = DBConfig::sluitConnectie();
+		return 1;
+		}
+		$dbh = DBConfig::sluitConnectie();
 	}
 }

@@ -12,20 +12,25 @@ require_once ("Business/ProductService.php");
 require_once ("login.php");
 
 if (isset($_GET["id"])&& $_GET["id"] != "" ){
+	//id ophalen van de bestelling
 	$id = $_GET["id"];
+	//een nieuwe bestelservice aanmaken
 	$bestelServ = new BestelService();
+	//de bestellijnen per bestelling opvragen.
 	$bestellijnen = $bestelServ->getBestellijnenById($id);
 
 	//Ik heb de klant van de bestelling nodig.
 	//de pizza(product) om de naam weer te geven en misscien de kost
 	//Ik heb de bestelling nodig voor meer info over de klant,info,datum,tijdstip,straat,stad
 
+	//haalt de bestelling op
 	$bestelling = $bestelServ->getBestellingById($bestellijnen[0]->getBestellingId());
-
+	//een nieuwe productservices voor de pizzas op te halen
 	$pizzaServ = new ProductService();
+
+	//voor elk itel van bestellijnen
 	foreach ($bestellijnen as $item) {
 		$pizza = $pizzaServ->getById($item->getPizzaId());
-
 		$item->setPizzaId($pizza);
 	}
 	//print_r($bestelling);
