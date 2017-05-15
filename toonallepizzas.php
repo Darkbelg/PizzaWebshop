@@ -33,5 +33,5 @@ if (isset($promo)){
 	$twigarray["promo"] = 1;
 }
 
-$view = $twig->render("toonAllePizzas.twig",$twigarray);
+$view = $twig->render("toonallepizzas.twig",$twigarray);
 print $view;

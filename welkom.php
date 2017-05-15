@@ -13,6 +13,6 @@ $zaakSvc = new ZaakService();
 $zaak = $zaakSvc->getByNaam("Papi Product");
 //print_r($zaak);
 
-//include "Presentation/index.php";
+//include "presentation/index.php";
 $view = $twig->render("index.twig",array("zaak"=>$zaak));
 print($view);
