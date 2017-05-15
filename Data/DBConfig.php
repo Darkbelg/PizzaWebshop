@@ -12,7 +12,7 @@
 //	public static $DB_USERNAME = "Papi";
 //	public static $DB_PASSWORD = "Pizza";
 		public static function openConnectie(){
-			$DB_CONNSTRING = $_ENV["DB_CONNSTRING"];
+			$DB_CONNSTRING = $_ENV["CLEARDB_DATABASE_URL"];
 			$DB_USERNAME = $_ENV["DB_USERNAME"];
 			$DB_PASSWORD = $_ENV["DB_PASSWORD"];
 			return new PDO($DB_CONNSTRING,$DB_USERNAME,$DB_PASSWORD);
