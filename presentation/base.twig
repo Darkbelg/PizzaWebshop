@@ -3,7 +3,7 @@
 <head>
     {% block head %}
         <meta charset="UTF-8">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Papi Pizza</title>
         <link rel="stylesheet" href="Libraries/bootstrap/css/bootstrap.css">
         <script src="http://code.jquery.com/jquery.js"></script>
@@ -12,8 +12,9 @@
     {% endblock %}
 </head>
 <body>
+
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
+    <div class="container-fluid container">
         <div class="navbar-header">
             <a href="toonallepizzas.php" class="navbar-brand">Papi pizza</a>
         </div>
@@ -30,8 +31,8 @@
             {% endif %}
         </ul>
     </div>
-</nav>
 
+</nav>
 <div class="container">{% block content %}{% endblock %}</div>
 
 <footer class="footer">
