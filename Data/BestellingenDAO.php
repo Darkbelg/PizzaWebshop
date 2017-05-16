@@ -150,11 +150,21 @@
 			$sql = "insert into bestellijn(bestellingId, aantal, productId) VALUES (:bestellingId,:aantal,:productId)";
 			$stmt = $dbh->prepare($sql);
 			$stmt->execute(array(":bestellingId" => $bestellingId, ":aantal" => $aantal, ":productId" => $productId));
-			$rij = $stmt->fetch(PDO::FETCH_ASSOC);
+			$id = $dbh->lastInsertId();
 			$dbh = DBConfig::sluitConnectie();
-			return $rij;
+			return $id;
 		}
 
+
+
+		public function createExtra($bestellijnId,$ingredientId)
+		{
+			$dbh = DBConfig::openConnectie();
+			$sql = "insert into extras VALUES (:idb,:idi)";
+			$stmt =$dbh->prepare($sql);
+			$stmt->execute(array(":idb"=>$bestellijnId,":idi"=>$ingredientId));
+		$dbh = DBConfig::sluitConnectie();
+		}
 		private function getOrdersExtraPizzaId($orderId)
 		{
 			$dbh = DBConfig::openConnectie();

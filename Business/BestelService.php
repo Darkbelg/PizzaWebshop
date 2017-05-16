@@ -12,7 +12,6 @@
 	require_once "Data/KlantDAO.php";
 
 
-
 	class BestelService
 	{
 		public function nieuweBestelling($datum, $tijdstip, $klantNummer, $straat, $huisnummer, $stad, $bestellijnen, $info)
@@ -31,6 +30,7 @@
 
 			$this->nieuwBestellijn($bestellijnen, $bestellingen->getId());
 
+
 			return $bestellingen;
 
 		}
@@ -40,9 +40,13 @@
 			$bestellingDao = new BestellingenDAO();
 
 			foreach ($bestellijnen as $bestellijn) {
-				$bestellijn = $bestellingDao->createbestelLijn($bestellingId, $bestellijn["aantal"], $bestellijn["product"]);
+				$bestellijnId = $bestellingDao->createbestelLijn($bestellingId, $bestellijn["aantal"], $bestellijn["product"]);
+				if (isset($bestellijn["ingredienten"])) {
+					foreach ($bestellijn["ingredienten"] as $item) {
+						$bestellingDao->createExtra($bestellijnId, $item);
+					}
+				}
 			}
-
 		}
 
 		public function getAll()

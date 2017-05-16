@@ -4,7 +4,7 @@
         <h1>Afrekenen</h1>
     </div>
     {% if winkelmandje %}
-        <table class="table table-striped">
+        <table class="table table-striped table-hover">
             <thead>
             <tr>
                 <th>Naam</th>
@@ -15,7 +15,7 @@
             <tbody>
             {% set som = 0 %}
             {% for pizza in winkelmandje %}
-                <tr>
+                <tr data-toggle="collapse" data-target=".pizza{{ loop.index }}" class="accordion-toggle">
                     <td>{{ pizza.product.naam }}</td>
 
                     <td>&euro;
@@ -27,11 +27,31 @@
                             </td>
                     <td>{{ pizza.product.omschrijving }} </td>
                     <td>{{ pizza.aantal }}</td>
-                </tr> {% if promo =="1" %}
+                </tr>
+                {% for ingredient in pizza.ingredienten %}
+                <tr >
+                    <td >
+                        <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">Extra: {{ ingredient.naam }}</div>
+                    </td>
+                    <td>
+                        <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">&euro;{{ ingredient.prijs }}</div>
+                    </td>
+                    <td colspan="3">
+                        <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">{{ ingredient.omschrijving }}</div>
+                    </td>
+                </tr>
+                    {% if promo =="1" %}
+                        {% set som = som + ingredient.prijs*(1-ingredient.promoKorting) %}
+                    {% else %}
+                        {% set som = som + ingredient.prijs%}
+                    {% endif %}
+            {% endfor %} {% if promo =="1" %}
                 {% set som = som + ((pizza.product.prijs*(1-pizza.product.promoKorting))*pizza.aantal) %}
             {% else %}
+
+
                 {% set som = som + (pizza.product.prijs*pizza.aantal)%}
-                {% endif %}
+            {% endif %}
             {% endfor %}
             </tbody>
             <tfoot>
@@ -43,8 +63,9 @@
                 <td><a href="toonAllePizzas.php">Wijzig winkelmandje</a></td>
             </tr>
             </tfoot>
-            </tbody>
         </table>
+
+
 
         {% if error %}
             <div class="panel panel-danger">
@@ -85,7 +106,7 @@
             {#</div>#}
             <div class="form-group">
                 <label for="tijd">Tijdstip levering </label>
-                <input id="tijd" name="tijd" type="datetime-local">
+                <input id="tijd" name="tijd" type="datetime-local" value="{{ vandaag }}" >
             </div>
 
 

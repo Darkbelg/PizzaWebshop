@@ -25,14 +25,19 @@ if ($klant) {
 		$klantServ = new KlantService();
 
 
-		foreach ($sWinMand as $product) {
-			$idP = $product["product"];
-			$product["product"] = $productSvc->getById($idP);
-			$sWinMand[$product["product"]->getId()] = $product;
 
-		}
+//		foreach ($sWinMand as $product) {
+//			$idP = $product["product"];
+//			$product["product"] = $productSvc->getById($idP);
+//			$sWinMand[$product["product"]->getId()] = $product;
+//
+//		}
+//
+//
+		$twigArray["winkelmandje"] = $productSvc->winkelmandje($sWinMand);
+
 		$klant = $klantServ->getById($klantNummer);
-		$twigArray["winkelmandje"] = $sWinMand;
+
 		try {
 			$klantServ->controleerRegio($klant->getStad()->getStad());
 		} catch (BuitenLevergebiedException $ex) {
@@ -46,6 +51,8 @@ if ($klant) {
 			$twigArray["promo"] = $promo;
 		}
 
+		$vandaag = new DateTime('now');
+		$twigArray["vandaag"] = $vandaag->format("Y-m-d")."T".$vandaag->format("h:m");
 		$view = $twig->render("afrekenen.twig", $twigArray);
 	}
 	else{
