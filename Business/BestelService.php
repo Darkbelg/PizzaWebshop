@@ -82,4 +82,11 @@
 			$bestelling->setPlaats($stad);
 			return $bestelling;
 		}
+
+		public function getExtra($bestellijnId)
+		{
+			$bestellingDao = new BestellingenDAO();
+			$extras = $bestellingDao->getExtra($bestellijnId);
+			return $extras;
+		}
 	}

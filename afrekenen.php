@@ -52,7 +52,7 @@ if ($klant) {
 		}
 
 		$vandaag = new DateTime('now');
-		$twigArray["vandaag"] = $vandaag->format("Y-m-d")."T".$vandaag->format("h:m");
+		$twigArray["vandaag"] = $vandaag->format("Y-m-d")."T".$vandaag->format("H:m");
 		$view = $twig->render("afrekenen.twig", $twigArray);
 	}
 	else{

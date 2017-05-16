@@ -15,9 +15,9 @@ require_once "Business/ProductService.php";
 $productDao = new BestellingenDAO();
 
 try {
-	$productDao->createExtra(14,3);
+	$lijst = $productDao->getExtra(13);
   print "<pre>";
-	print_r("Wijzigen extra");
+	print_r($lijst);
 	print "</pre>";
 }catch (BestaatException $ex){
 	print("het bestaat al");

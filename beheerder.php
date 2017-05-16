@@ -44,7 +44,7 @@ if(isset($beheerder)&&$beheerder){
 			$twigarray["leverGebied"] = $klantServ->toonLeverGebied();
 			$twigarray["klanten"] = $klantServ->getAll();
 
-			$view = $twig->render('beheerder/toonAlleKlanten.twig',$twigarray);
+			$view = $twig->render('beheerder/toonalleklanten.twig',$twigarray);
 		}
 		print $view;
 	}
