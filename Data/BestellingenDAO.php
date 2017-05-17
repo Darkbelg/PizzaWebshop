@@ -177,6 +177,7 @@
 					$ingredient = Product::create($rij["id"],$rij["naam"],$rij["prijs"],$rij["beginDatum"],$rij["eindDatum"],$rij["promoKorting"],$rij["omschrijving"],$rij["extra"]);
 				array_push($lijst,$ingredient);
 			}
+			$dbh = DBConfig::sluitConnectie();
 			return $lijst;
 		}
 		private function getOrdersExtraPizzaId($orderId)

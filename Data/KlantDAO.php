@@ -135,7 +135,7 @@ where klantNummer = :klantNummer";
         $stmt = $dbh->prepare($sql);
         $stmt->execute(array(":naam" => $naam, ":voornaam" => $voornaam, ":telefoon" => $telefoon));
         $rij = $stmt->fetch(PDO::FETCH_ASSOC);
-
+			$dbh = DBConfig::sluitConnectie();
         return $rij["klantNummer"];
     }
 
