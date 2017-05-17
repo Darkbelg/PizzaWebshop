@@ -105,8 +105,12 @@
                                                              {#type="text" required value="{% if not error %}{{ klant.stad.postcode }}{% endif %}">#}
             {#</div>#}
             <div class="form-group">
-                <label for="tijd">Tijdstip levering </label>
-                <input id="tijd" name="tijd" type="datetime-local" value="{{ vandaag }}" >
+                <label for="tijd">Dag levering </label>
+                <input id="tijd" name="tijd" type="date" required value="{{ vandaag }}" >
+            </div>
+            <div class="form-group">
+                <label for="uur">Tijdstip levering </label>
+                <input id="uur" name="uur" type="time" required value="{{ tijd }}" >
             </div>
 
 
