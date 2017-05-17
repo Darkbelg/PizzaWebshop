@@ -24,7 +24,7 @@
 				$_SESSION["beheerder"] = 1;
 			}
 			setcookie("email", $klant->getEmailadres(), time() + (10 * 365 * 24 * 60 * 60));
-			Doorverwijzen::doorverwijzen("afrekenen.php");
+			Doorverwijzen::doorverwijzen("afrekenen.php?succes=U bent succesvol ingelogd.");
 		} catch (FouteLoginException $ex) {
 			$twigarray["error"] = "Uw e-mail of wachtwoord is onjuist.";
 			$view = $twig->render("aanmelden.twig",$twigarray);

@@ -42,7 +42,7 @@
 //				}
 //			}
 		$bestelling = $bestellingenServ->nieuweBestelling($datum,$tijdstip,$klant->getKlantNummer(),$straat,$huisnummer,$stad,$sWinMan,$info);
-		Doorverwijzen::doorverwijzen("toonallepizzas.php?b=s");
+		Doorverwijzen::doorverwijzen("toonallepizzas.php?succes=Uw bestelling is geplaatst.");
 
 
 		}

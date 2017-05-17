@@ -16,4 +16,9 @@ class ZaakService
 		$zaak = $zaakDAO->getByNaam($naam);
 		return $zaak;
 }
+	public function update($id, $beginDatum, $eindDatum, $aantal, $voorwaarden)
+	{
+		$zaakDAO = new ZaakDAO();
+		$zaakDAO->update($id,$beginDatum,$eindDatum,$aantal,$voorwaarden);
+	}
 }

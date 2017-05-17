@@ -12,8 +12,8 @@
 	$producten              = $productenSvc->getAllByToday();
 	$twigarray["producten"] = $producten;
 
-	if(isset($_GET["b"]) && $_GET["b"] == "s") {
-		$twigarray["bestelling"] = "Uw besteling is besteld.";
+	if(isset($_GET["succes"])) {
+		$twigarray["succes"] = $_GET["succes"];
 		unset($_SESSION["winkelmandje"]);
 	}
 

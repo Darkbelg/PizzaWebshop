@@ -6,13 +6,15 @@
  * Time: 11:10
  */
 
-//TODO promotie
-	// TODO ingredienten
-// TODO seizoensgebonden producten
+
 require_once("bootstrap.php");
 require_once ("Business/ProductService.php");
 require_once ("Business/KlantService.php");
 require_once ("login.php");
+
+if($_GET["succes"]){
+	$twigArray["succes"]= $_GET["succes"];
+}
 
 if ($klant) {
 	if(isset($_SESSION["winkelmandje"])) {
@@ -56,7 +58,8 @@ if ($klant) {
 		$view = $twig->render("afrekenen.twig", $twigArray);
 	}
 	else{
-		Doorverwijzen::doorverwijzen("toonallepizzas.php");
+		if(isset($_GET["succes"]))Doorverwijzen::doorverwijzen("toonallepizzas.php?succes=U bent succesvol geregistreerd.");
+		else Doorverwijzen::doorverwijzen("toonallepizzas.php");
 	}
 } else {
 	Doorverwijzen::doorverwijzen("aanmeldkeuze.php");
