@@ -1,0 +1,56 @@
+{% extends "base.twig" %}
+{% block content %}
+
+    {% if error %}
+        <div class="panel panel-danger">
+
+            <div class="panel-heading">Er is iets fout gelopen</div>
+            <div class="panel-body">{{ error }}</div>
+
+        </div>
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Prijs</th>
+            <th>Omschrijving</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>{{ pizza.naam }}</td>
+            <td>{% if promo %}
+                    &euro;{{ (pizza.prijs * (1 - pizza.promoKorting))|number_format }}
+                {% else %}
+                    &euro;{{ pizza.prijs }}
+                {% endif %}
+            </td>
+            <td>{{ pizza.omschrijving }} </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <form action="winkelmandje.php?action=toevoegen&id={{ pizza.id }}" method="post">
+    {% for extra in extras %}
+        {% if extra.extra == 1 %}
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="{{extra.id}}" name="ingredient[]">
+                    {% if promo %}
+                        {{ extra.naam }} Prijs:&euro;{{ extra.prijs*(1-extra.promo) }}
+                    {% else %}
+                        {{ extra.naam }} Prijs: &euro;{{ extra.prijs }}
+                    {% endif %}
+                </label>
+            </div>
+        {% endif %}
+    {% endfor %}
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Toevoegen">
+        </div>
+    </form>
+{% endblock %}

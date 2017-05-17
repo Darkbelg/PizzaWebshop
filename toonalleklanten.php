@@ -10,5 +10,5 @@ require_once "bootstrap.php";
 
 $klantSvc =new KlantService();
 $klanten = $klantSvc->getAll();
-$view = $twig->render("beheerder/toonAlleKlanten.twig",array("klanten"=>$klanten));
+$view = $twig->render("beheerder/toonalleklanten.twig",array("klanten"=>$klanten));
 print $view;

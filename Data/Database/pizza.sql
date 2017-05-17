@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 13 apr 2017 om 15:48
+-- Gegenereerd op: 15 mei 2017 om 14:29
 -- Serverversie: 10.1.21-MariaDB
--- PHP-versie: 7.0.15
+-- PHP-versie: 7.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bestellijn` (
-  `id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL,
   `bestellingId` int(11) NOT NULL,
   `aantal` int(11) NOT NULL,
   `productId` int(11) NOT NULL
@@ -38,7 +38,12 @@ CREATE TABLE `bestellijn` (
 --
 
 INSERT INTO `bestellijn` (`id`, `bestellingId`, `aantal`, `productId`) VALUES
-(1, 1, 2, 1);
+(1, 1, 2, 1),
+(2, 2, 1, 1),
+(3, 3, 2, 1),
+(4, 3, 1, 4),
+(5, 4, 1, 1),
+(6, 4, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -61,7 +66,37 @@ CREATE TABLE `bestellingen` (
 --
 
 INSERT INTO `bestellingen` (`id`, `datum`, `tijdstip`, `info`, `klantNummer`, `straatId`, `plaatsId`) VALUES
-(1, '2017-04-12', '10:24:00', 'vierde verdiep', 2, 1, 1);
+(1, '2017-04-12', '10:24:00', 'vierde verdiep', 2, 1, 1),
+(2, '2017-05-11', '19:00:00', 'Vraag naar Ji-yong', 3, 4, 6),
+(3, '2017-05-15', '12:00:00', 'Kloppen want de bel doet het niet.', 3, 4, 6),
+(4, '2017-05-25', '15:00:00', '', 3, 4, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structuur voor view `bestellingeninfo`
+-- (Zie onder voor de actuele view)
+--
+CREATE TABLE `bestellingeninfo` (
+`id` int(11)
+,`datum` date
+,`tijdstip` time
+,`info` varchar(500)
+,`klantNummer` int(11)
+,`straatId` int(11)
+,`plaatsId` int(11)
+,`postcode` int(4)
+,`stad` varchar(50)
+,`straat` varchar(50)
+,`huisnummer` int(11)
+,`naam` varchar(45)
+,`voornaam` varchar(45)
+,`telefoon` int(10)
+,`emailadres` varchar(100)
+,`opmerking` varchar(500)
+,`promo` tinyint(1)
+,`beheerder` tinyint(1)
+);
 
 -- --------------------------------------------------------
 
@@ -113,7 +148,8 @@ CREATE TABLE `klant` (
 --
 
 INSERT INTO `klant` (`klantNummer`, `naam`, `voornaam`, `telefoon`, `emailadres`, `wachtwoord`, `opmerking`, `promo`, `beheerder`, `stadId`, `straatId`) VALUES
-(2, 'Sagaert', 'Stijn', 477176085, 'stijn.sagaert@outlook.be', '$2y$10$qKb1J8Ucy.xet/hetYVXF.J4CwE1MNGkwYCat/35H/zg67h8zFLiC', 'beste klant', 0, 0, 1, 1);
+(2, 'Sagaert', 'Stijn', 477176085, 'stijn.sagaert@outlook.be', '$2y$10$qKb1J8Ucy.xet/hetYVXF.J4CwE1MNGkwYCat/35H/zg67h8zFLiC', 'beste klant', 0, 0, 1, 1),
+(3, 'Dragon', 'G', 45568975, 'god@gg.com', '$2y$10$L/Edd.EvoeMWwWh5ilj1NO6mLanfz4tHBEowRC.gjV.h3afFiI3b.', '', 0, 1, 6, 4);
 
 -- --------------------------------------------------------
 
@@ -125,6 +161,13 @@ CREATE TABLE `levergebied` (
   `zaakId` int(11) NOT NULL,
   `plaatsId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `levergebied`
+--
+
+INSERT INTO `levergebied` (`zaakId`, `plaatsId`) VALUES
+(1, 6);
 
 -- --------------------------------------------------------
 
@@ -148,9 +191,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `naam`, `prijs`, `beginDatum`, `eindDatum`, `promoKorting`, `omschrijving`, `extra`) VALUES
-(1, 'Peporon', 10.25, '2017-04-12', '2017-04-26', 0.95, 'Beste peporoni pizza', 0),
-(3, 'black pepper', 0.2, '2017-04-01', '2017-04-30', 0.1, 'beste zwarte peper in de wereld', 1),
-(4, 'Hawai', 25, '2017-04-13', '2017-04-21', 0.1, 'best hawai pizza buiten hawai', 0);
+(1, 'Peporon', 10.25, '2017-04-12', '2017-05-31', 0.95, 'Beste peporoni pizza', 0),
+(3, 'black pepper', 0.2, '2017-04-01', '2017-05-31', 0.1, 'beste zwarte peper in de wereld', 1),
+(4, 'Hawai', 25, '2017-04-13', '2017-05-31', 0.1, 'best hawai pizza buiten hawai', 0),
+(5, 'kaas', 0.49, '2017-05-01', '2017-05-31', 0.1, ' Heerlijke smeltende kaas.', 1);
 
 -- --------------------------------------------------------
 
@@ -171,7 +215,8 @@ CREATE TABLE `stad` (
 INSERT INTO `stad` (`id`, `postcode`, `stad`) VALUES
 (1, 8800, 'Roeselare'),
 (2, 8400, 'Oostende'),
-(5, 8700, 'Tilt');
+(5, 8700, 'Tilt'),
+(6, 8900, 'seoul');
 
 -- --------------------------------------------------------
 
@@ -192,7 +237,8 @@ CREATE TABLE `straat` (
 INSERT INTO `straat` (`id`, `straat`, `huisnummer`) VALUES
 (1, 'Oude stationstraat', 30),
 (2, 'statiestraat', 28),
-(3, 'statiestraat', 29);
+(3, 'statiestraat', 29),
+(4, 'stationstraat', 36);
 
 -- --------------------------------------------------------
 
@@ -214,11 +260,26 @@ CREATE TABLE `zaak` (
 --
 
 INSERT INTO `zaak` (`id`, `naam`, `voorwaarden`, `beginPromoDatum`, `eindPromoDatum`, `promoAantalBestellingen`) VALUES
-(1, 'Papi Pizza', 'We zijn niet verantwoordelijk voor te warm eten.', '2017-04-11', '2017-04-11', 5);
+(1, 'Papi Pizza', 'We zijn niet verantwoordelijk voor te warm eten.', '2017-04-11', '2017-05-31', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Structuur voor de view `bestellingeninfo`
+--
+DROP TABLE IF EXISTS `bestellingeninfo`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bestellingeninfo`  AS  select `b`.`id` AS `id`,`b`.`datum` AS `datum`,`b`.`tijdstip` AS `tijdstip`,`b`.`info` AS `info`,`b`.`klantNummer` AS `klantNummer`,`b`.`straatId` AS `straatId`,`b`.`plaatsId` AS `plaatsId`,`d`.`postcode` AS `postcode`,`d`.`stad` AS `stad`,`s`.`straat` AS `straat`,`s`.`huisnummer` AS `huisnummer`,`k`.`naam` AS `naam`,`k`.`voornaam` AS `voornaam`,`k`.`telefoon` AS `telefoon`,`k`.`emailadres` AS `emailadres`,`k`.`opmerking` AS `opmerking`,`k`.`promo` AS `promo`,`k`.`beheerder` AS `beheerder` from (((`bestellingen` `b` join `stad` `d` on((`b`.`plaatsId` = `d`.`id`))) join `straat` `s` on((`b`.`straatId` = `s`.`id`))) join `klant` `k` on((`b`.`klantNummer` = `k`.`klantNummer`))) order by `b`.`datum` desc ;
 
 --
 -- Indexen voor geëxporteerde tabellen
 --
+
+--
+-- Indexen voor tabel `bestellijn`
+--
+ALTER TABLE `bestellijn`
+  ADD KEY `id` (`id`);
 
 --
 -- Indexen voor tabel `bestellingen`
@@ -290,10 +351,15 @@ ALTER TABLE `zaak`
 --
 
 --
+-- AUTO_INCREMENT voor een tabel `bestellijn`
+--
+ALTER TABLE `bestellijn`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT voor een tabel `bestellingen`
 --
 ALTER TABLE `bestellingen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT voor een tabel `gastenboek`
 --
@@ -303,22 +369,22 @@ ALTER TABLE `gastenboek`
 -- AUTO_INCREMENT voor een tabel `klant`
 --
 ALTER TABLE `klant`
-  MODIFY `klantNummer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `klantNummer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT voor een tabel `stad`
 --
 ALTER TABLE `stad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT voor een tabel `straat`
 --
 ALTER TABLE `straat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT voor een tabel `zaak`
 --

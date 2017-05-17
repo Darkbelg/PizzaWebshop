@@ -150,11 +150,35 @@
 			$sql = "insert into bestellijn(bestellingId, aantal, productId) VALUES (:bestellingId,:aantal,:productId)";
 			$stmt = $dbh->prepare($sql);
 			$stmt->execute(array(":bestellingId" => $bestellingId, ":aantal" => $aantal, ":productId" => $productId));
-			$rij = $stmt->fetch(PDO::FETCH_ASSOC);
+			$id = $dbh->lastInsertId();
 			$dbh = DBConfig::sluitConnectie();
-			return $rij;
+			return $id;
 		}
 
+
+
+		public function createExtra($bestellijnId,$ingredientId)
+		{
+			$dbh = DBConfig::openConnectie();
+			$sql = "insert into extras VALUES (:idb,:idi)";
+			$stmt =$dbh->prepare($sql);
+			$stmt->execute(array(":idb"=>$bestellijnId,":idi"=>$ingredientId));
+		$dbh = DBConfig::sluitConnectie();
+		}
+
+		public function getExtra($bestellijnId)
+		{
+			$dbh = DBConfig::openConnectie();
+			$sql = "SELECT * FROM extras INNER JOIN product on extras.productId = product.id WHERE bestelId= :bestelId";
+			$stmt = $dbh->prepare($sql);
+			$stmt->execute(array(":bestelId"=>$bestellijnId));
+			$lijst = array();
+			foreach ($stmt as $rij){
+					$ingredient = Product::create($rij["id"],$rij["naam"],$rij["prijs"],$rij["beginDatum"],$rij["eindDatum"],$rij["promoKorting"],$rij["omschrijving"],$rij["extra"]);
+				array_push($lijst,$ingredient);
+			}
+			return $lijst;
+		}
 		private function getOrdersExtraPizzaId($orderId)
 		{
 			$dbh = DBConfig::openConnectie();

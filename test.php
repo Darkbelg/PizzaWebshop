@@ -12,12 +12,12 @@ require_once "Business/BestelService.php";
 require_once "Data/ProductDAO.php";
 require_once "Business/ProductService.php";
 
-$productServ = new ProductService();
+$productDao = new BestellingenDAO();
 
 try {
-	$productServ->update("7","champignon","0.70","2017-5-2","2017-5-5","0.1","De lekkerste paddestoel die er is.","1");
+	$lijst = $productDao->getExtra(13);
   print "<pre>";
-	print_r("Wijzigen extra");
+	print_r($lijst);
 	print "</pre>";
 }catch (BestaatException $ex){
 	print("het bestaat al");

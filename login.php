@@ -15,7 +15,11 @@ if (isset($_SESSION["klant"])) {
 	$klant = unserialize($_SESSION["klant"]);
 	$k = $klantServ->getById($klant);
 	$beheerder = $k->getBeheerder();
-	$promo = $k->getPromo();
-	$promo = $klantServ->getInPromoPeriode();
+	if($k->getPromo() == 1){
+		$promo = 1;
+	} else{
+		$promo = $klantServ->getInPromoPeriode();
+	}
+
 	$twigarray["klant"]=$klant;
 }

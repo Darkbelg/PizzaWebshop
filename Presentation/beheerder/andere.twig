@@ -1,0 +1,35 @@
+{% extends "beheerder/navigatie.twig" %}
+{% block andere %}
+    class="active"
+{% endblock %}
+{% block content %}
+    {#{% if error %}#}
+        {#<div class="panel panel-danger">#}
+
+            {#<div class="panel-heading">Er is iets fout gelopen</div>#}
+            {#<div class="panel-body">{{ error }}</div>#}
+
+        {#</div>#}
+    {#{% endif %}#}
+    {#{% if succes %}#}
+        {#<div class="alert alert-success alert-dismissable">{{ succes }}</div>#}
+    {#{% endif %}#}
+    <form action="updatezaak.php?id={{ zaak.id }}" method="post">
+        <div class="form-group">
+        <label for="beginDatum">Begin promo periode: </label>
+        <input type="date" class="form-inline" id="beginDatum" name="beginDatum" value="{{ zaak.beginpromodatum }}">
+
+        <label for="eindDatum">Einde promo periode: </label>
+        <input type="date" class="form-inline" id="eindDatum" name="eindDatum" value="{{ zaak.eindpromodatum }}">
+        </div>
+        <div class="form-group">
+            <label for="aantal">Voer hier het aantal bestellingen in voordat een klant korting krijgt.</label>
+            <input type="text" id="aantal" name="aantal" class="form-control" value="{{ zaak.promoaantalbestellingen }}">
+        </div>
+        <div class="form-group">
+            <label for="voorwaarden">Voorwaarden</label>
+            <textarea name="voorwaarden" id="voorwaarden" cols="30" rows="10"  class="form-control">{{ zaak.voorwaarden }}</textarea>
+        </div>
+        <input type="submit" value="Updaten" class="btn btn-primary">
+    </form>
+{% endblock %}

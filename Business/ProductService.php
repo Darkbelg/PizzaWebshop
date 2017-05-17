@@ -63,4 +63,34 @@ class ProductService
 		$product->setExtra($extra);
 		$productDAO->update($product);
 	}
+
+
+	/**
+	 * haalt alle items in het basis winkelmandje op. Deze bestaat alleen uit ids.
+	 * @param $winkelmandje verplicht
+	 * @return array return een gevulde winkelmand
+	 */
+	public function winkelmandje($winkelmandje)
+	{
+		$w = array();
+		foreach ($winkelmandje as $key => $item) {
+			unset($i);
+			$idP = $item["product"];
+			$product = $this->getById($idP);
+
+			$i["product"] = $product;
+			$i["aantal"] = $item["aantal"];
+
+			if (isset($item["ingredienten"])) {
+				$ingredienten = [];
+				foreach ($item["ingredienten"] as $ingredientId) {
+					$ingredient = $this->getById($ingredientId);
+					array_push($ingredienten, $ingredient);
+				}
+				$i["ingredienten"] = $ingredienten;
+			}
+			$w[$key]=$i;
+		}
+		return $w;
+	}
 }

@@ -4,11 +4,11 @@
     <div class="jumbotron">
         <h1>Alle pizza's waarvan je ooit had kunnen dromen!</h1>
     </div>
-    {% if bestelling %}
-        <div class="alert alert-success">
-            {{ bestelling }}
-        </div>
-    {% endif %}
+    {#{% if bestelling %}#}
+        {#<div class="alert alert-success">#}
+            {#{{ bestelling }}#}
+        {#</div>#}
+    {#{% endif %}#}
     <table class="table table-striped">
         <thead>
         <tr>
@@ -18,30 +18,32 @@
         </tr>
         </thead>
         <tbody>
-        {% for pizza in producten %}
-            {% if pizza.extra == 0 %}
-                <tr>
-                    <td>{{ pizza.naam }}</td>
-                    <td>{% if promo %}
+        {% for pizza in producten if pizza.extra ==0 %}
+            {#{% if pizza.extra == 0 %}#}
+            <tr>
+                <td>{{ pizza.naam }}</td>
+                <td>{% if promo %}
                         &euro;{{ (pizza.prijs * (1 - pizza.promoKorting))|number_format }}
                     {% else %}
                         &euro;{{ pizza.prijs }}
-                        {% endif %}
-                    </td>
-                    <td>{{ pizza.omschrijving }} </td>
-                    {#<td>#}
-                    {#<a href="updateProduct.php?id={{ pizza.id }}">Wijzigen</a>#}
-                    {#</td>#}
-                    {#<td>#}
-                    {#<a href="verwijderProduct.php?id={{ pizza.id }}">Verwijder</a>#}
-                    {#</td>#}
-                    <td>
-                        <a href="winkelmandje.php?action=toevoegen&id={{ pizza.id }}"> <span
-                                    class="glyphicon glyphicon-plus-sign"></span><span
-                                    class="glyphicon glyphicon-shopping-cart"></span></a>
-                    </td>
-                </tr>
-            {% endif %}
+                    {% endif %}
+                </td>
+                <td>{{ pizza.omschrijving }} </td>
+                {#<td>#}
+                {#<a href="updateProduct.php?id={{ pizza.id }}">Wijzigen</a>#}
+                {#</td>#}
+                {#<td>#}
+                {#<a href="verwijderProduct.php?id={{ pizza.id }}">Verwijder</a>#}
+                {#</td>#}
+                <td><a href="extraingredienten.php?id={{ pizza.id }}">pizza met extra ingredienten toevoegen</a>
+                </td>
+                <td>
+                    <a href="winkelmandje.php?action=toevoegen&id={{ pizza.id }}"> <span
+                                class="glyphicon glyphicon-plus-sign"></span><span
+                                class="glyphicon glyphicon-shopping-cart"></span></a>
+                </td>
+            </tr>
+            {#{% endif %}#}
         {% endfor %}
         </tbody>
 
@@ -49,7 +51,11 @@
     {% if winkelmandje %}
 
         <h1>Winkelmandje</h1>
-        <table class="table table-striped">
+
+
+
+
+        <table class="table table-striped table-hover">
             <thead>
             <tr>
                 <th>Naam</th>
@@ -60,8 +66,8 @@
 
             </thead>
             <tbody>
-            {% for pizza in winkelmandje %}
-                <tr>
+            {% for key,pizza in winkelmandje %}
+                <tr data-toggle="collapse" data-target=".pizza{{ loop.index }}" class="accordion-toggle">
                     <td>{{ pizza.product.naam }}</td>
                     <td>
                         {% if promo == "1" %}
@@ -69,14 +75,32 @@
                         {% else %}
                             &euro;{{ pizza.product.prijs }}
                         {% endif %}
-                     </td>
+                    </td>
                     <td>{{ pizza.product.omschrijving }} </td>
                     <td>{{ pizza.aantal }}</td>
-                    <td><a href="winkelmandje.php?action=verwijder&id={{ pizza.product.id }}"><span
+                    <td><a href="winkelmandje.php?action=verwijder&id={{ key }}"><span
                                     class="glyphicon glyphicon-minus-sign"></span><span
                                     class="glyphicon glyphicon-shopping-cart"></span></a>
                     </td>
                 </tr>
+
+
+                {% for ingredient in pizza.ingredienten if pizza.ingredienten %}
+                    <tr>
+                        <td>
+                            <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">
+                                Extra: {{ ingredient.naam }}</div>
+                        </td>
+                        <td>
+                            <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">
+                                &euro;{{ ingredient.prijs }}</div>
+                        </td>
+                        <td colspan="3">
+                            <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">{{ ingredient.omschrijving }}</div>
+                        </td>
+                    </tr>
+                {% endfor %}
+
             {% endfor %}
             </tbody>
         </table>
