@@ -74,10 +74,13 @@ class ProductService
 	{
 		$w = array();
 		foreach ($winkelmandje as $key => $item) {
+			unset($i);
 			$idP = $item["product"];
 			$product = $this->getById($idP);
+
 			$i["product"] = $product;
 			$i["aantal"] = $item["aantal"];
+
 			if (isset($item["ingredienten"])) {
 				$ingredienten = [];
 				foreach ($item["ingredienten"] as $ingredientId) {

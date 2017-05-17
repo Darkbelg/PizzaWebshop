@@ -20,29 +20,29 @@
         <tbody>
         {% for pizza in producten if pizza.extra ==0 %}
             {#{% if pizza.extra == 0 %}#}
-                <tr>
-                    <td>{{ pizza.naam }}</td>
-                    <td>{% if promo %}
-                            &euro;{{ (pizza.prijs * (1 - pizza.promoKorting))|number_format }}
-                        {% else %}
-                            &euro;{{ pizza.prijs }}
-                        {% endif %}
-                    </td>
-                    <td>{{ pizza.omschrijving }} </td>
-                    {#<td>#}
-                    {#<a href="updateProduct.php?id={{ pizza.id }}">Wijzigen</a>#}
-                    {#</td>#}
-                    {#<td>#}
-                    {#<a href="verwijderProduct.php?id={{ pizza.id }}">Verwijder</a>#}
-                    {#</td>#}
-                    <td><a href="extraingredienten.php?id={{ pizza.id }}">pizza met extra ingredienten toevoegen</a>
-                    </td>
-                    <td>
-                        <a href="winkelmandje.php?action=toevoegen&id={{ pizza.id }}"> <span
-                                    class="glyphicon glyphicon-plus-sign"></span><span
-                                    class="glyphicon glyphicon-shopping-cart"></span></a>
-                    </td>
-                </tr>
+            <tr>
+                <td>{{ pizza.naam }}</td>
+                <td>{% if promo %}
+                        &euro;{{ (pizza.prijs * (1 - pizza.promoKorting))|number_format }}
+                    {% else %}
+                        &euro;{{ pizza.prijs }}
+                    {% endif %}
+                </td>
+                <td>{{ pizza.omschrijving }} </td>
+                {#<td>#}
+                {#<a href="updateProduct.php?id={{ pizza.id }}">Wijzigen</a>#}
+                {#</td>#}
+                {#<td>#}
+                {#<a href="verwijderProduct.php?id={{ pizza.id }}">Verwijder</a>#}
+                {#</td>#}
+                <td><a href="extraingredienten.php?id={{ pizza.id }}">pizza met extra ingredienten toevoegen</a>
+                </td>
+                <td>
+                    <a href="winkelmandje.php?action=toevoegen&id={{ pizza.id }}"> <span
+                                class="glyphicon glyphicon-plus-sign"></span><span
+                                class="glyphicon glyphicon-shopping-cart"></span></a>
+                </td>
+            </tr>
             {#{% endif %}#}
         {% endfor %}
         </tbody>
@@ -58,7 +58,7 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th >Naam</th>
+                <th>Naam</th>
                 <th>Prijs</th>
                 <th>Omschrijving</th>
                 <th>Aantal</th>
@@ -68,7 +68,7 @@
             <tbody>
             {% for key,pizza in winkelmandje %}
                 <tr data-toggle="collapse" data-target=".pizza{{ loop.index }}" class="accordion-toggle">
-                    <td >{{ pizza.product.naam }}</td>
+                    <td>{{ pizza.product.naam }}</td>
                     <td>
                         {% if promo == "1" %}
                             &euro;{{ (pizza.product.prijs * (1 - pizza.product.promoKorting))|number_format }}
@@ -85,13 +85,15 @@
                 </tr>
 
 
-                {% for ingredient in pizza.ingredienten %}
-                    <tr >
-                        <td >
-                            <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">Extra: {{ ingredient.naam }}</div>
+                {% for ingredient in pizza.ingredienten if pizza.ingredienten %}
+                    <tr>
+                        <td>
+                            <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">
+                                Extra: {{ ingredient.naam }}</div>
                         </td>
                         <td>
-                            <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">&euro;{{ ingredient.prijs }}</div>
+                            <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">
+                                &euro;{{ ingredient.prijs }}</div>
                         </td>
                         <td colspan="3">
                             <div class="accordion-body collapse pizza{{ loop.parent.loop.index }}">{{ ingredient.omschrijving }}</div>
