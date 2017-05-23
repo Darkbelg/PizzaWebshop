@@ -46,11 +46,15 @@
 			if(!$this->validateDate($beginDatum) or !$this->validateDate($eindDatum)) {
 				throw new NotADateException("Datum is verkeerd ingevuld");
 			}
+			if($beginDatum>$eindDatum){
+				throw new Exception("Begindatum moet kleiner zijn dan de einddatum");
+			}
 
 			$dbh  = DBConfig::openConnectie();
 			$sql  = "update zaak set voorwaarden =:voorwaarden,beginPromoDatum=:beginpromo,eindPromoDatum=:eindpromo,promoAantalBestellingen=:aantal WHERE id=:id";
 			$stmt = $dbh->prepare($sql);
 			$stmt->execute(array(":voorwaarden" => $voorwaarden, ":beginpromo" => $beginDatum, ":eindpromo" => $eindDatum, ":aantal" => $aantal, ":id" => $id));
+			$dbh = DBConfig::sluitConnectie();
 		}
 		private function validateDate($date)
 		{

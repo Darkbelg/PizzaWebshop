@@ -53,12 +53,12 @@
 			//INNER JOIN klant AS k on b.klantNummer = k.klantNummer
 			//ORDER BY b.datum DESC
 			$resultSet = $dbh->query($sql);
-			$lijst = array();
-			foreach ($resultSet as $rij) {
+			$lijst     = array();
+			foreach($resultSet as $rij) {
 
-				$stad = Stad::create($rij["plaatsId"], $rij["postcode"], $rij["stad"]);
-				$straat = Straat::create($rij["straatId"], $rij["straat"], $rij["huisnummer"]);
-				$klant = Klant::create($rij["klantNummer"], $rij["naam"], $rij["voornaam"], $rij["telefoon"], $rij["emailadres"], "", $rij["opmerking"], $rij["promo"], $rij["beheerder"], $stad, $straat);
+				$stad         = Stad::create($rij["plaatsId"], $rij["postcode"], $rij["stad"]);
+				$straat       = Straat::create($rij["straatId"], $rij["straat"], $rij["huisnummer"]);
+				$klant        = Klant::create($rij["klantNummer"], $rij["naam"], $rij["voornaam"], $rij["telefoon"], $rij["emailadres"], "", $rij["opmerking"], $rij["promo"], $rij["beheerder"], $stad, $straat);
 				$bestellijnen = $this->getBestellijnen($rij["id"]);
 				$bestellingen = Bestellingen::create($rij["id"], $rij["datum"], $rij["tijdstip"], $rij["info"], $klant, $straat, $stad, $bestellijnen);
 				array_push($lijst, $bestellingen);
@@ -71,12 +71,12 @@
 
 		public function getBestellijnen($bestellingId)
 		{
-			$dbh = DBConfig::openConnectie();
-			$sql = "select *,bestellijn.id as lid from bestellingen INNER JOIN bestellijn on bestellingen.id = bestellijn.bestellingId where bestellingId =:bestellingId";
+			$dbh  = DBConfig::openConnectie();
+			$sql  = "select *,bestellijn.id as lid from bestellingen INNER JOIN bestellijn on bestellingen.id = bestellijn.bestellingId where bestellingId =:bestellingId";
 			$stmt = $dbh->prepare($sql);
 			$stmt->execute(array(":bestellingId" => $bestellingId));
 			$lijst = array();
-			foreach ($stmt as $rij) {
+			foreach($stmt as $rij) {
 				$bestellijn = Bestellijn::create($rij["lid"], $rij["bestellingId"], $rij["aantal"], $rij["productId"]);
 				array_push($lijst, $bestellijn);
 			}
@@ -90,15 +90,15 @@
 		 */
 		public function getOrdersById($id)
 		{
-			$dbh = DBConfig::openConnectie();
-			$sql = "select * from bestellingen WHERE id = :id";
+			$dbh  = DBConfig::openConnectie();
+			$sql  = "select * from bestellingen WHERE id = :id";
 			$stmt = $dbh->prepare($sql);
 			$stmt->execute(array(':id' => $id));
 			$lijst = array();
-			foreach ($stmt as $rij) {
+			foreach($stmt as $rij) {
 				//$ingredienten = $this->getOrdersExtraPizzaId($rij["orderId"]);
-				$pizzaDAO = new ProductDAO();
-				$pizza = $pizzaDAO->getById($rij["pizzaId"]);
+				$pizzaDAO   = new ProductDAO();
+				$pizza      = $pizzaDAO->getById($rij["pizzaId"]);
 				$bestelling = Bestellijn::create($rij["id"], $rij["bestellingId"], $rij["aantal"], $pizza);
 				array_push($lijst, $bestelling);
 			}
@@ -114,16 +114,16 @@
 		 * @param $straat
 		 * @param $stad
 		 */
-		public function create($datum, $tijdstip, $klantNummer, $straat, $stad,$info)
+		public function create($datum, $tijdstip, $klantNummer, $straat, $stad, $info)
 		{
-			$dbh = DBConfig::openConnectie();
-			$sql = "INSERT into bestellingen(datum,tijdstip,klantNummer,straatId,plaatsId,info)VALUES(:datum,:tijdstip,:klantNummer,:straatId,:plaatsId,:info)";
+			$dbh  = DBConfig::openConnectie();
+			$sql  = "INSERT into bestellingen(datum,tijdstip,klantNummer,straatId,plaatsId,info)VALUES(:datum,:tijdstip,:klantNummer,:straatId,:plaatsId,:info)";
 			$stmt = $dbh->prepare($sql);
-			$stmt->execute(array(":datum" => $datum, ":tijdstip" => $tijdstip, ":klantNummer" => $klantNummer, ":straatId" => $straat, "plaatsId" => $stad,":info"=>$info));
-			$id = $dbh->lastInsertId();
+			$stmt->execute(array(":datum" => $datum, ":tijdstip" => $tijdstip, ":klantNummer" => $klantNummer, ":straatId" => $straat, "plaatsId" => $stad, ":info" => $info));
+			$id         = $dbh->lastInsertId();
 			$bestelling = $this->getById($id);
-			$dbh = DBConfig::sluitConnectie();
-			$klantDao = new KlantDAO();
+			$dbh        = DBConfig::sluitConnectie();
+			$klantDao   = new KlantDAO();
 			$klantDao->setAanmerkingPromo($klantNummer);
 			return $bestelling;
 
@@ -131,8 +131,8 @@
 
 		public function getById($id)
 		{
-			$dbh = DBConfig::openConnectie();
-			$sql = "select * from bestellingen WHERE id = :id";
+			$dbh  = DBConfig::openConnectie();
+			$sql  = "select * from bestellingen WHERE id = :id";
 			$stmt = $dbh->prepare($sql);
 			$stmt->execute(array(":id" => $id));
 
@@ -146,47 +146,46 @@
 
 		public function createbestelLijn($bestellingId, $aantal, $productId)
 		{
-			$dbh = DBConfig::openConnectie();
-			$sql = "insert into bestellijn(bestellingId, aantal, productId) VALUES (:bestellingId,:aantal,:productId)";
+			$dbh  = DBConfig::openConnectie();
+			$sql  = "insert into bestellijn(bestellingId, aantal, productId) VALUES (:bestellingId,:aantal,:productId)";
 			$stmt = $dbh->prepare($sql);
 			$stmt->execute(array(":bestellingId" => $bestellingId, ":aantal" => $aantal, ":productId" => $productId));
-			$id = $dbh->lastInsertId();
+			$id  = $dbh->lastInsertId();
 			$dbh = DBConfig::sluitConnectie();
 			return $id;
 		}
 
-
-
-		public function createExtra($bestellijnId,$ingredientId)
+		public function createExtra($bestellijnId, $ingredientId)
 		{
-			$dbh = DBConfig::openConnectie();
-			$sql = "insert into extras VALUES (:idb,:idi)";
-			$stmt =$dbh->prepare($sql);
-			$stmt->execute(array(":idb"=>$bestellijnId,":idi"=>$ingredientId));
-		$dbh = DBConfig::sluitConnectie();
+			$dbh  = DBConfig::openConnectie();
+			$sql  = "insert into extras VALUES (:idb,:idi)";
+			$stmt = $dbh->prepare($sql);
+			$stmt->execute(array(":idb" => $bestellijnId, ":idi" => $ingredientId));
+			$dbh = DBConfig::sluitConnectie();
 		}
 
 		public function getExtra($bestellijnId)
 		{
-			$dbh = DBConfig::openConnectie();
-			$sql = "SELECT * FROM extras INNER JOIN product on extras.productId = product.id WHERE bestelId= :bestelId";
+			$dbh  = DBConfig::openConnectie();
+			$sql  = "SELECT * FROM extras INNER JOIN product on extras.productId = product.id WHERE bestelId= :bestelId";
 			$stmt = $dbh->prepare($sql);
-			$stmt->execute(array(":bestelId"=>$bestellijnId));
+			$stmt->execute(array(":bestelId" => $bestellijnId));
 			$lijst = array();
-			foreach ($stmt as $rij){
-					$ingredient = Product::create($rij["id"],$rij["naam"],$rij["prijs"],$rij["beginDatum"],$rij["eindDatum"],$rij["promoKorting"],$rij["omschrijving"],$rij["extra"]);
-				array_push($lijst,$ingredient);
+			foreach($stmt as $rij) {
+				$ingredient = Product::create($rij["id"], $rij["naam"], $rij["prijs"], $rij["beginDatum"], $rij["eindDatum"], $rij["promoKorting"], $rij["omschrijving"], $rij["extra"]);
+				array_push($lijst, $ingredient);
 			}
+			$dbh = DBConfig::sluitConnectie();
 			return $lijst;
 		}
 		private function getOrdersExtraPizzaId($orderId)
 		{
-			$dbh = DBConfig::openConnectie();
-			$sql = "SELECT ingredientenId,naam,voedingswaarden,kostprijs,extra FROM bestelling INNER JOIN extraingredienten on bestelling.orderId = extraingredienten.orderId INNER JOIN ingredienten on extraingredienten.ingredientId = ingredienten.ingredientenId where extraingredienten.orderId = :order";
+			$dbh  = DBConfig::openConnectie();
+			$sql  = "SELECT ingredientenId,naam,voedingswaarden,kostprijs,extra FROM bestelling INNER JOIN extraingredienten on bestelling.orderId = extraingredienten.orderId INNER JOIN ingredienten on extraingredienten.ingredientId = ingredienten.ingredientenId where extraingredienten.orderId = :order";
 			$stmt = $dbh->prepare($sql);
 			$stmt->execute(array(':order' => $orderId));
 			$lijst = array();
-			foreach ($stmt as $rij) {
+			foreach($stmt as $rij) {
 				$ingredient = Ingredient::create($rij["ingredientenId"], $rij["naam"], $rij["voedingswaarden"], $rij["kostprijs"], $rij["extra"]);
 				array_push($lijst, $ingredient);
 			}
