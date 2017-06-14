@@ -45,7 +45,7 @@
 			if($_GET["p"] == "k") {
 				$twigarray["leverGebied"] = $klantServ->toonLeverGebied();
 				$twigarray["klanten"]     = $klantServ->getAll();
-				$view                     = $twig->render('beheerder/producten.twig', $twigarray);
+				$view                     = $twig->render('beheerder/toonalleklanten.twig', $twigarray);
 			}
 			if($_GET["p"] == "a") {
 				$zaakService       = new ZaakService();
