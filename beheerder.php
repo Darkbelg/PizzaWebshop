@@ -43,6 +43,7 @@
 			}
 			// Welke klant pagina renderen
 			if($_GET["p"] == "k") {
+
 				$twigarray["leverGebied"] = $klantServ->toonLeverGebied();
 				$twigarray["klanten"]     = $klantServ->getAll();
 				$view                     = $twig->render('beheerder/toonalleklanten.twig', $twigarray);
